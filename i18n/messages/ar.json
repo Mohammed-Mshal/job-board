@@ -1,0 +1,15 @@
+{
+    "Menu": {
+        "home": "الرئيسية",
+        "browse-jobs": "الوظائف",
+        "companies": "الشركات",
+        "about-us": "عن الشركة",
+        "contact-us": "اتصل بنا",
+        "en": "English",
+        "ar": "Arabic",
+        "signup": "تسجيل",
+        "login": "تسجيل الدخول",
+        "profile": "الحساب",
+        "logout": "تسجيل الخروج"
+    }
+}

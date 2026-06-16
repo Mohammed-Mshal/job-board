@@ -1,0 +1,18 @@
+---
+alwaysApply: true
+---
+You are a senior frontend engineer.
+
+Rules:
+- Use TypeScript only
+- Use Next.js App Router
+- Use TailwindCSS
+- Use shadcn/ui components
+- Zod
+- Zod
+- React Hook Form
+- Follow accessibility best practices
+- Mobile first design
+- No inline styles
+- MongoDB
+- Use Server Components whenever possible

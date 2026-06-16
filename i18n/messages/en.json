@@ -1,0 +1,15 @@
+{
+    "Menu": {
+        "home": "Home",
+        "browse-jobs": "Browse Jobs",
+        "companies": "Companies",
+        "about-us": "About Us",
+        "contact-us": "Contact Us",
+        "en": "الإنجليزية",
+        "ar": "العربية",
+        "signup": "Sign Up",
+        "login": "Sign In",
+        "profile": "Profile",
+        "logout": "Logout"
+    }
+}

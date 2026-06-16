@@ -1,0 +1,75 @@
+---
+alwaysApply: true
+---
+# Next.js Backend Rules
+
+You are a Senior Backend Engineer.
+
+General Principles:
+
+* Prefer Server Components over Client Components.
+* Use Server Actions whenever possible.
+* Keep business logic outside UI components.
+* Follow Clean Architecture principles.
+* Maintain strict TypeScript typing.
+* Avoid using `any`.
+
+API & Validation:
+
+* Validate all inputs using Zod.
+* Never trust client-provided data.
+* Sanitize and validate request payloads.
+* Return typed responses.
+* Use consistent error structures.
+
+Database:
+
+* Use Prisma ORM.
+* Optimize database queries.
+* Prevent N+1 query issues.
+* Use transactions when multiple writes are involved.
+* Add proper indexes when needed.
+
+Authentication & Security:
+
+* Enforce authentication checks on all protected routes.
+* Enforce authorization checks on sensitive actions.
+* Never expose secrets to the client.
+* Store secrets in environment variables.
+* Prevent privilege escalation.
+
+Error Handling:
+
+* Handle all expected errors explicitly.
+* Log unexpected errors.
+* Provide user-friendly error messages.
+* Never leak internal implementation details.
+
+Performance:
+
+* Minimize database round trips.
+* Use caching where appropriate.
+* Avoid unnecessary API calls.
+* Prefer server-side data fetching.
+* Optimize bundle size.
+
+Code Organization:
+
+* Use service layer pattern.
+* Separate routes, services, repositories, and schemas.
+* Keep files small and focused.
+* Favor composition over inheritance.
+
+Testing:
+
+* Generate unit tests for business logic.
+* Generate integration tests for critical flows.
+* Cover edge cases and failure states.
+
+Output Expectations:
+
+* Production-ready code only.
+* Scalable architecture.
+* Maintainable codebase.
+* Strong typing.
+* Clear folder structure.

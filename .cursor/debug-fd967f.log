@@ -1,0 +1,8 @@
+{"sessionId":"fd967f","location":"proxy.ts:entry","message":"proxy invoked","data":{"pathname":"/ar","hasFileExtension":false,"matcherWouldMatch":true},"timestamp":1781606601509,"hypothesisId":"A,D"}
+{"sessionId":"fd967f","location":"proxy.ts:exit","message":"proxy response","data":{"pathname":"/ar","status":200,"location":null,"rewrite":null},"timestamp":1781606601510,"hypothesisId":"A,E"}
+{"sessionId":"fd967f","location":"proxy.ts:entry","message":"proxy invoked","data":{"pathname":"/ar","hasFileExtension":false,"matcherWouldMatch":true},"timestamp":1781606607469,"hypothesisId":"A,D"}
+{"sessionId":"fd967f","location":"proxy.ts:exit","message":"proxy response","data":{"pathname":"/ar","status":200,"location":null,"rewrite":null},"timestamp":1781606607470,"hypothesisId":"A,E"}
+{"sessionId":"fd967f","location":"proxy.ts:entry","message":"proxy invoked","data":{"pathname":"/ar","hasFileExtension":false,"matcherWouldMatch":true},"timestamp":1781606617249,"hypothesisId":"A,D"}
+{"sessionId":"fd967f","location":"proxy.ts:exit","message":"proxy response","data":{"pathname":"/ar","status":200,"location":null,"rewrite":null},"timestamp":1781606617252,"hypothesisId":"A,E"}
+{"sessionId":"fd967f","location":"proxy.ts:entry","message":"proxy invoked","data":{"pathname":"/en","hasFileExtension":false,"matcherWouldMatch":true},"timestamp":1781606623533,"hypothesisId":"A,D"}
+{"sessionId":"fd967f","location":"proxy.ts:exit","message":"proxy response","data":{"pathname":"/en","status":200,"location":null,"rewrite":null},"timestamp":1781606623545,"hypothesisId":"A,E"}
