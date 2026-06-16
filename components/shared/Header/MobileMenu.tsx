@@ -24,6 +24,14 @@ export default function MobileMenu() {
                     <Link href={item.href} className="mobile-menu-item-link">{t(item.label)}</Link>
                 </li>
             ))}
+            <li className="mobile-menu-item flex items-center gap-8 pt-8">
+                <Link href="/signup" className="text-[#E7E0ED] hover:text-[#8b5cf6] transition-all duration-300 cursor-pointer">
+                            {t('signup')}
+                </Link>
+                <Link href="/login" className="base-btn btn-primary">
+                    {t('login')}
+                </Link>
+            </li>
         </ul>
     </div>
   )
