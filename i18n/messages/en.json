@@ -11,5 +11,84 @@
         "login": "Sign In",
         "profile": "Profile",
         "logout": "Logout"
+    },
+    "Banner": {
+        "title": "The Platform for",
+        "title-highlight": "Elite Career Growth",
+        "description": "Connecting world-class talent with the most innovative companies on the planet.Your next architectural masterpiece or engineering breakthrough starts here.",
+        "cta": "Explore Jobs",
+        "cta-secondary": "Browse Categories"
+    },
+    "Loading": {
+        "loading": "Loading..."
+    },
+    "NotFoundPage": {
+        "title": "Page not found",
+        "description": "The page you're looking for doesn't exist or may have been moved.",
+        "cta": "Back to Home"
+    },
+    "partnering-with-industry-leaders": "Partnering with Industry Leaders",
+    "OurValueSection": {
+        "title": "Our Values",
+        "description": "Define your career path or team with a platform that delivers real, measurable results at every step."
+    },
+    "HowItWorksSection": {
+        "title": "How It Works",
+        "description": "Our platform is designed to help you find your dream job and grow your career."
+    },
+    "WhyChooseUsSection": {
+        "title": "Why Companies Choose Us",
+        "description": "We provide a cutting-edge and advanced platform for companies to find the best talent to achieve their professional success."
+    },
+    "FeaturePath": {
+        "title": "Feature Path",
+        "description": "The career path that suits you and helps you grow your career.",
+        "cta": "Explore Jobs"
+    },
+    "TestimonialsSection": {
+        "title": "Hear it from the community.",
+        "subtitle": "Testimonials",
+        "description": "Join over 50,000 professionals who have leveled up their careers through Jobify's platform."
+    },
+    "Footer": {
+        "heading": "Footer",
+        "brandLabel": "Jobify home",
+        "description": "Connecting talented professionals with leading companies worldwide.",
+        "copyright": "© {year} Jobify. All rights reserved.",
+        "tagline": "Built for modern hiring.",
+        "product": {
+            "title": "Product",
+            "findJobs": "Find Jobs",
+            "browseCompanies": "Browse Companies",
+            "applications": "Applications",
+            "careerResources": "Career Resources"
+        },
+        "companies": {
+            "title": "Companies",
+            "postJob": "Post a Job",
+            "findCandidates": "Find Candidates",
+            "pricing": "Pricing",
+            "recruiterDashboard": "Recruiter Dashboard"
+        },
+        "resources": {
+            "title": "Resources",
+            "blog": "Blog",
+            "helpCenter": "Help Center",
+            "documentation": "Documentation",
+            "contact": "Contact"
+        },
+        "legal": {
+            "title": "Legal",
+            "privacyPolicy": "Privacy Policy",
+            "termsOfService": "Terms of Service",
+            "cookiesPolicy": "Cookies Policy",
+            "security": "Security"
+        },
+        "social": {
+            "linkedin": "LinkedIn",
+            "github": "GitHub",
+            "twitter": "X (Twitter)",
+            "email": "Email"
+        }
     }
 }

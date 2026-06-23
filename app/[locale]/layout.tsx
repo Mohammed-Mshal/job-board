@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
-import { Cairo, Geist, Geist_Mono, Inter } from "next/font/google";
+import { Cairo } from "next/font/google";
+import { hasLocale } from "next-intl";
+import { notFound } from "next/navigation";
+import 'swiper/css';
+import 'swiper/css/bundle';
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Header from "@/components/shared/Header/Header";
+import Footer from "@/components/shared/Footer/Footer";
 import LocaleProviders from "@/providers/LocaleProviders";
 import MobileMenu from "@/components/shared/Header/MobileMenu";
-
-const inter = Inter({subsets:['latin'],variable:'--font-sans'});
-
+import { routing } from "@/i18n/routing";
 const CairoFont = Cairo({
   weight: ['200', '300', '400', '500', '600', '700', '800', '900', '1000'],
   style: ['normal'],
@@ -28,7 +31,12 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 }>) {
-  const locale = (await params).locale;
+  const { locale } = await params;
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+
   return (
     <html
       lang={locale}
@@ -42,7 +50,7 @@ export default async function RootLayout({
           <main className="flex-1">
             {children}
           </main>
-          {/* <Footer /> */}
+          <Footer />
         </LocaleProviders>
       </body>
     </html>

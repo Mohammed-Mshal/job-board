@@ -152,6 +152,10 @@ html {
     border: 1px solid var(--border);
   }
 
+  .btn-secondary:hover {
+    background: var(--card-secondary-hover);
+  }
+
   .input {
     background: var(--input);
     border: 1px solid var(--input-border);
@@ -195,13 +199,7 @@ html {
   }
 
   .mobile-menu {
-    @apply block lg:hidden fixed top-0 left-0 w-full h-full bg-[#15121Baf] backdrop-blur-lg z-50 opacity-0 invisible pointer-events-none transition-all duration-300;
-  }
-
-  .mobile-menu.active {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: all
+    @apply w-full h-full bg-[#15121Baf] backdrop-blur-lg z-50;
   }
 
   .mobile-menu-items {
@@ -219,4 +217,25 @@ html {
   .btn-language {
     @apply flex items-center gap-1 transition-all duration-300 cursor-pointer text-[#E7E0ED] hover:text-[#8b5cf6];
   }
+}
+
+.swiper-pagination-bullet {
+  background: #8b5cf6;
+  opacity: 1;
+  width: 10px;
+  height: 10px;
+  transition: .3s all ease-in-out !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: #8b5cf6;
+  opacity: 1;
+  width: 10px;
+  height: 10px;
+}
+.our-value-swiper .swiper-wrapper {
+  padding: 1.4rem 0;
+}
+html[dir="rtl"] .accordion-trigger-icon {
+  transform: rotate(180deg);
 }

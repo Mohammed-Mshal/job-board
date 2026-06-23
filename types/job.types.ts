@@ -1,3 +1,5 @@
+import { IUser } from "./user.types";
+
 export enum JobStatus {
     OPEN = "open",
     CLOSED = "closed",
@@ -7,7 +9,7 @@ export interface IJob {
     _id: string;
     title: string;
     description: string;
-    company: string;
+    company: Partial<IUser>;
     location: string;
     salary: {
         min: number;
