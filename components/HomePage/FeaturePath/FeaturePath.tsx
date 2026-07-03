@@ -51,7 +51,7 @@ export default async function FeaturePath() {
         <HeaderSection title={t('title')} description={t('description')} headerDirection="left" />
         <SlideUp
         whileInView="animate" initial="initial" viewport={{ amount: 0.5, once: true }}>
-          <Link href="/jobs" className="base-btn btn-primary">
+          <Link href="/jobs" className="base-btn btn-primary text-nowrap">
             {t('cta')}
           </Link>
         </SlideUp>

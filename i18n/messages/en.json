@@ -45,6 +45,43 @@
         "description": "The career path that suits you and helps you grow your career.",
         "cta": "Explore Jobs"
     },
+    "JobCard": {
+        "company": "Company",
+        "title": "Job Title",
+        "location": "Location",
+        "type": "Type",
+        "posted": "Posted",
+        "apply": "Apply Now"
+    },
+    "errors": {
+        "404": {
+            "title": "Page Not Found",
+            "description": "The page you're looking for doesn't exist or may have been moved.",
+            "cta": "Back to Home"
+        },
+        "500": {
+            "title": "Server Error",
+            "description": "A server error occurred. Please try again later.",
+            "cta": "Back to Home"
+        }
+    },
+    "empty-state": {
+        "jobs": {
+            "title": "No Jobs Available",
+            "description": "There are currently no jobs available. Please check back later.",
+            "cta": "Back to Home"
+        },
+        "companies": {
+            "title": "No Companies Available",
+            "description": "There are currently no companies available. Please check back later.",
+            "cta": "Back to Home"
+        },
+        "users": {
+            "title": "No Users Available",
+            "description": "There are currently no users available. Please check back later.",
+            "cta": "Back to Home"
+        }
+    },
     "TestimonialsSection": {
         "title": "Hear it from the community.",
         "subtitle": "Testimonials",
