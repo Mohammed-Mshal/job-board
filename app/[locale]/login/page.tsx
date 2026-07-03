@@ -10,7 +10,7 @@ export default async function login() {
   return (
     <div className="pt-12 login-page z-10 ">
       <div className="container xl:max-w-7xl mx-auto px-4 py-2 flex gap-12">
-        <div className="left-side w-1/2 flex flex-col gap-10 relative">
+        <div className="left-side w-1/2 flex-col gap-10 relative hidden md:flex">
           <div className="flex flex-col items-start gap-6">
             <div className="subtitle flex items-center gap-2 bg-[rgba(208,188,255,0.1)] border border-[rgba(208,188,255,0.2)] text-[#D0BCFF] uppercase tracking-wider py-1 px-4 rounded-full">
               <SearchCode/>
@@ -28,7 +28,7 @@ export default async function login() {
           <ProfileCardPreview/>
 
         </div>
-        <div className="right-side w-1/2 flex flex-col gap-3 justify-center p-8">
+        <div className="right-side w-full md:w-1/2 flex flex-col gap-3 justify-center p-8">
           <LoginForm/>
           <hr className="my-8 border-t border-[#27272A]"/>
           <div className="flex justify-center gap-1">

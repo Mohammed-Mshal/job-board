@@ -24,7 +24,7 @@ export default function Footer() {
       aria-labelledby="footer-heading"
     >
       <SlideUp
-        className="mx-auto w-full max-w-7xl px-4 pt-16 pb-4 md:pb-8"
+        className="mx-auto container xl:max-w-7xl px-4 pt-16 pb-4 md:pb-8"
         viewport={{ amount: 0.15 }}
       >
         <h2 id="footer-heading" className="sr-only">

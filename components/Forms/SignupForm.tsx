@@ -85,7 +85,7 @@ export default function SignupForm() {
           </div>
           <div className="info-choose">
             <h3 className="text-lg font-bold text-[#D0BCFF]">I&apos;m a Candidate</h3>
-            <p className="text-sm text-[#A1A1AA]">
+            <p className="text-sm text-[#A1A1AA] hidden sm:block">
               Explore elite career opportunities and
               <br />
               manage your applications.
@@ -107,7 +107,7 @@ export default function SignupForm() {
           </div>
           <div className="info-choose">
             <h3 className="text-lg font-bold text-[#D0BCFF]">I&apos;m a Recruiter</h3>
-            <p className="text-sm text-[#A1A1AA]">
+            <p className="text-sm text-[#A1A1AA] hidden sm:block">
               Source premium talent and manage your
               <br />
               company&apos;s hiring pipeline.
