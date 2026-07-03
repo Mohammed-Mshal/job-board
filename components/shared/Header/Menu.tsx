@@ -1,11 +1,11 @@
 'use client'
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
-import { globalStore } from '@/store/global.store';
+import { useGlobalStore } from '@/store/global.store';
 import React from 'react'
 
 export default function Menu() {
-    const { menuState, setMenuState, menuItems } = globalStore();
+    const { menuState, setMenuState, menuItems } = useGlobalStore();
     const t = useTranslations('Menu');
     return (
         <div className="menu">

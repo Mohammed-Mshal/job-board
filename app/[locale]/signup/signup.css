@@ -1,0 +1,33 @@
+.user-type-choice {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    background: rgba(24, 24, 27, 0.8);
+    border: 2px solid transparent;
+    backdrop-filter: blur(6px);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    padding: 32px 16px;
+    cursor: pointer;
+    flex: 1;
+}
+.user-type-choice .check-mark{
+    border: 2px solid #D0BCFF;
+    color: #D0BCFF;
+    padding: 4px;
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    opacity: 0;
+    transition: .3s all ease-in-out;
+}
+.user-type-choice:hover,
+.user-type-choice:has(input:checked) {
+    border: 2px solid #D0BCFF;
+    box-shadow: 0px 0px 20px rgba(139, 92, 246, 0.2);
+}
+
+.user-type-choice:has(input:checked) .check-mark{
+    opacity: 1;
+}

@@ -1,10 +1,7 @@
 import { ROUTES } from "@/routes";
-import { IUser } from "@/types/user.types";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 interface GlobalState {
-  user: IUser | null;
-  setUser: (user: IUser | null) => void;
   menuState:boolean;
   setMenuState: (menuState: boolean) => void;
   menuItems: typeof ROUTES;
@@ -16,14 +13,13 @@ interface GlobalState {
   setLocales: (locales: string[]) => void;
 }
 
-export const globalStore = create<GlobalState>()(persist((set) => ({
-  user: null,
-  setUser: (user) => set({ user }),
+export const useGlobalStore = create<GlobalState>()(persist((set,get) => ({
   menuState: false,
   setMenuState: (menuState) => set({ menuState }),
   menuItems: ROUTES,
   setMenuItems: (menuItems) => set({ menuItems }),
   locale: 'en',
+ 
   changeLocale: (newLocale:string) => {
 
     return set({ locale: newLocale });
@@ -33,7 +29,6 @@ export const globalStore = create<GlobalState>()(persist((set) => ({
   initialize: () => {
     const savedLocale = localStorage.getItem('locale');
     set({
-    user: null,
     menuState: false,
     menuItems: ROUTES,
     locale: savedLocale || 'en',

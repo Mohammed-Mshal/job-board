@@ -90,5 +90,89 @@
             "twitter": "X (Twitter)",
             "email": "Email"
         }
+    },
+    "Login": {
+        "subtitle": "Next-Gen Recruitment Platform",
+        "title": "Engineered for the modern career.",
+        "description": "Experience a professional networking platform designed with the precision of developer tools. Manage applications, connect with leaders, and scale your career.",
+        "cta": "Get Started",
+        "error": "An error occurred while logging in. Please try again.",
+        "dont-have-an-account": "Don't have an account?",
+        "register": "Register for free"
+    },
+    "forms":{
+        "email": {
+            "label": "Email",
+            "placeholder": "Enter your email",
+            "required": "Email is required",
+            "invalid": "Invalid email address"
+        },
+        "password": {
+            "label": "Password",
+            "placeholder": "Enter your password",
+            "required": "Password is required",
+            "minLength": "Password must be at least 8 characters long"
+        },
+        "name": {
+            "label": "Name",
+            "placeholder": "Enter your name"
+        },
+        "confirmPassword": {
+            "label": "Confirm password",
+            "placeholder": "Confirm your password"
+        },
+        "logging-in": "Logging in...",
+        "login": "Login",
+        "registering": "Registering...",
+        "register": "Register",
+        "registerSuccess": "Registration successful",
+        "loginSuccess": "Login successful",
+        "location": {
+            "label": "Location",
+            "placeholder": "Enter your location"
+        },
+        "description": {
+            "label": "Description",
+            "placeholder": "Enter your description"
+        },
+        "search":"Search",
+        "type-to-search":"Type To Search",
+        "city":"City",
+        "filter": {
+            "title": "Filters",
+            "close": "Close filters",
+            "apply": "Apply filters",
+            "clear": "Clear filters",
+            "status": {
+                "label": "Job status",
+                "all": "All statuses",
+                "open": "Open",
+                "closed": "Closed"
+            },
+            "sortBy": {
+                "label": "Sort by",
+                "options": {
+                    "createdAt": "Date posted",
+                    "updatedAt": "Last updated",
+                    "title": "Job title",
+                    "description": "Description",
+                    "company": "Company",
+                    "location": "Location",
+                    "salary": "Salary"
+                }
+            },
+            "sortOrder": {
+                "label": "Sort order",
+                "asc": "Ascending",
+                "desc": "Descending"
+            },
+            "salary": {
+                "label": "Salary range",
+                "min": "Min",
+                "max": "Max",
+                "minPlaceholder": "0",
+                "maxPlaceholder": "100000"
+            }
+        }
     }
 }

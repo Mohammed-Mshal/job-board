@@ -11,6 +11,8 @@ import Footer from "@/components/shared/Footer/Footer";
 import LocaleProviders from "@/providers/LocaleProviders";
 import MobileMenu from "@/components/shared/Header/MobileMenu";
 import { routing } from "@/i18n/routing";
+import { Toaster } from "react-hot-toast";
+import AuthProvider from "@/providers/AuthProvider";
 const CairoFont = Cairo({
   weight: ['200', '300', '400', '500', '600', '700', '800', '900', '1000'],
   style: ['normal'],
@@ -45,12 +47,15 @@ export default async function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <LocaleProviders>
+          <AuthProvider>
           <Header />
           <MobileMenu />
           <main className="flex-1">
             {children}
           </main>
           <Footer />
+          <Toaster />
+          </AuthProvider>
         </LocaleProviders>
       </body>
     </html>

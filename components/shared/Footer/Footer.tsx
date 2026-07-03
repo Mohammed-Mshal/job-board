@@ -24,7 +24,7 @@ export default function Footer() {
       aria-labelledby="footer-heading"
     >
       <SlideUp
-        className="mx-auto w-full max-w-7xl px-4 pt-16 pb-4 md:pt-20 md:pb-8 lg:py-24"
+        className="mx-auto w-full max-w-7xl px-4 pt-16 pb-4 md:pb-8"
         viewport={{ amount: 0.15 }}
       >
         <h2 id="footer-heading" className="sr-only">
@@ -117,7 +117,7 @@ export default function Footer() {
 
         {/* Bottom section */}
         <div className="border-t border-[#27272A] pt-8">
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-2 sm:flex-row items-center sm:justify-between">
             <p className="text-sm text-[#A1A1AA]">{t('copyright', { year: new Date().getFullYear() })}</p>
             <p className="text-xs text-[#71717A]">{t('tagline', { year: new Date().getFullYear() })}</p>
           </div>

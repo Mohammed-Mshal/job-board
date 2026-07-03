@@ -10,6 +10,8 @@ import { Bookmark} from 'lucide-react';
 export default function JobCard({ job }: { job: IJob }) {
   const localeLang = useLocale();
   const locale = localeLang === 'ar' ? ar : enUS;
+  console.log(job.company.profileImage?.url);
+  
   return (
     <div className="job-card flex flex-col gap-3 bg-[#18181B] rounded-3xl p-8 border border-[rgba(73,68,84,0.1)]">
         <div className="header-card flex items-start justify-between gap-4">

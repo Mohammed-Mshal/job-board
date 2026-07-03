@@ -2,13 +2,13 @@
 import { AnimatePresence,  SlideDown } from '@/components/motion';
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
-import { globalStore } from '@/store/global.store';
+import { useGlobalStore } from '@/store/global.store';
 import { X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import React from 'react'
 
 export default function MobileMenu() {
-    const { menuState, setMenuState,menuItems } = globalStore();
+    const { menuState, setMenuState,menuItems } = useGlobalStore();
     const t = useTranslations('Menu');
   return (
     <AnimatePresence>     

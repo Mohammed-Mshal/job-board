@@ -1,4 +1,4 @@
-import { formatZodError } from "@/lib/formatError";
+import { formatZodErrorToRecord } from "@/lib/formatError";
 import { HttpError } from "@/lib/httpError";
 import { jobsRepository } from "./jobs.repository";
 import { buildJobsFilter, CreateJobSchema, createJobValidation, getJobsQueryValidation } from "./jobs.validation";
@@ -11,7 +11,7 @@ export const jobsService = {
     const result = getJobsQueryValidation(params);
 
     if (!result.success) {
-      throw new HttpError(400, { errors: formatZodError(result.error) });
+      throw new HttpError(400, { errors: formatZodErrorToRecord(result.error) });
     }
 
     const data = result.data;
@@ -31,7 +31,7 @@ export const jobsService = {
     const company = await authService.getCompanyUser();
     const result = createJobValidation(job);
     if (!result.success) {
-      throw new HttpError(400, { errors: formatZodError(result.error) });
+      throw new HttpError(400, { errors: formatZodErrorToRecord(result.error) });
     }
     return await jobsRepository.createJob(company, result.data);
   },

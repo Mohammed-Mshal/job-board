@@ -1,4 +1,4 @@
-import { USER_ROLES } from "@/constants/roles";
+import { USER_ROLES, UserRoleType } from "@/constants/roles";
 import { z } from "zod";
 
 const loginSchema = z.object({
@@ -15,7 +15,9 @@ const registerSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
   password: z.string().min(8, { message: "Password must be at least 8 characters long" }),
   confirmPassword: z.string().min(8, { message: "Password must be at least 8 characters long" }),
-  role: z.enum(Object.values(USER_ROLES)).default(USER_ROLES.USER),
+  role: z.enum(Object.values(USER_ROLES) as [UserRoleType, ...UserRoleType[]]),
+  location: z.string().min(3, { message: "Location must be at least 3 characters long" }),
+  description: z.string().min(10, { message: "Description must be at least 10 characters long" }),
 }).refine((data) => data.password === data.confirmPassword, {
   path: ["confirmPassword"],
   message: "Passwords do not match",

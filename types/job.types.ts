@@ -20,3 +20,16 @@ export interface IJob {
     createdAt: string;
     updatedAt: string;
 }
+export interface IJobFilters {
+    page: number;
+    limit: number;
+    search: string;
+    location: string;
+    sortOrder: 'asc' | 'desc';
+    salary: {
+        min?: number | null;
+        max?: number | null;
+    };
+    requirements: string[] | null;
+    status: JobStatusType | null;
+}

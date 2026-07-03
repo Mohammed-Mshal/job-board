@@ -94,9 +94,9 @@
 
   --gradient-primary:
     linear-gradient(135deg,
-      #8b5cf6 0%,
+      #763bff 0%,
       #7c3aed 50%,
-      #6d28d9 100%);
+      #793cda 100%);
 
   --gradient-card:
     linear-gradient(180deg,
@@ -139,8 +139,12 @@ html {
   .btn-primary {
     background: var(--gradient-primary);
     background-position: 0 0;
-    background-size: 200% 100%;
+    background-size: 300% 100%;
     color: var(--primary-foreground);
+  }
+
+  .btn-primary:hover {
+    background-position: -200% 100%;
   }
 
   .base-btn:hover {
@@ -233,9 +237,11 @@ html {
   width: 10px;
   height: 10px;
 }
+
 .our-value-swiper .swiper-wrapper {
   padding: 1.4rem 0;
 }
+
 html[dir="rtl"] .accordion-trigger-icon {
   transform: rotate(180deg);
 }

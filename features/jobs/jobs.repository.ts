@@ -60,7 +60,7 @@ export const jobsRepository = {
         .sort({ [sortField]: sortOrderNum })
         .skip(skip)
         .limit(limit)
-        .populate({ path: "company", select: "-password" }),
+        .populate({ path: "company", select: "-password", populate:"profileImage" }),
       Job.countDocuments(query),
     ]);
 

@@ -1,14 +1,15 @@
 import { User } from "@/models/user.model";
 import { UserRoleType } from "@/constants/roles";
-import { IMedia } from "@/types/media.types";
 import { IMediaDocument } from "@/models/media.model";
 
 export const authRepository = {
   findUserByEmail: async (email: string) => {
-    return await User.findOne({ email }).select("+password");
+    return await User.findOne({ email })
+      .select("+password")
+      .populate("profileImage");
   },
   findUserById: async (id: string) => {    
-    return await User.findById(id);
+    return await User.findById(id).populate("profileImage");
   },
   createUser: async (
     name: string,

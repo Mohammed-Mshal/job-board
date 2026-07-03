@@ -5,6 +5,21 @@ export type FieldError = {
   message: string;
 };
 
+export function formatZodErrorToRecord(
+  error: unknown
+): Record<string, string[]> {
+  return formatZodError(error).reduce<Record<string, string[]>>(
+    (acc, { field, message }) => {
+      if (!acc[field]) {
+        acc[field] = [];
+      }
+      acc[field].push(message);
+      return acc;
+    },
+    {}
+  );
+}
+
 export function formatZodError(error: unknown): FieldError[] {
   if (
     typeof error === "object" &&

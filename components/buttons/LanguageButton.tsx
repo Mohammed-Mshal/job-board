@@ -1,12 +1,12 @@
 'use client'
 import { usePathname, useRouter } from '@/i18n/navigation';
-import { globalStore } from '@/store/global.store';
+import { useGlobalStore } from '@/store/global.store';
 import { GlobeIcon } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import React from 'react'
 
 export default function LanguageButton() {
-    const { changeLocale } = globalStore();
+    const { changeLocale } = useGlobalStore();
     const pathname = usePathname();
     const t = useTranslations('Menu');
     const locale = useLocale()

@@ -19,7 +19,7 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*", "./src/*"]
     }
   },
   "include": [
@@ -30,6 +30,6 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts",
     "components/shared/Header/Header.css"  
-  ],
+,     "components/ProfileCardPreview/ProfileCardPreview.css"  ],
   "exclude": ["node_modules"]
 }

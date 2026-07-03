@@ -24,7 +24,8 @@ export const authService = {
       throw new HttpError(400, { error: "Invalid password" });
     }
     await createSession({ userId: user._id.toString(), name: user.name, role: user.role });
-    return { message: "Account logged in successfully" };
+    const { password:_password, ...publicUser } = user.toObject();
+    return { message: "Account logged in successfully", user: publicUser };
   },
 
   register: async (
@@ -37,7 +38,7 @@ export const authService = {
     profileImage: File | null,
     role: UserRoleType
   ) => {
-    const isValidData = registerValidation({ name, email, password, confirmPassword, role });
+    const isValidData = registerValidation({ name, email, password, confirmPassword, role ,description,location});
     if (!isValidData.success) {
       throw new HttpError(400, { errors: formatZodError(isValidData.error) });
     }
