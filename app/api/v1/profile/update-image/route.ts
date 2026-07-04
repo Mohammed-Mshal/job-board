@@ -1,6 +1,7 @@
 import { userService } from "@/features/user/user.services";
 import { asyncWrapper } from "@/lib/asyncWrapper";
 import connectDB from "@/lib/db";
+
 import { NextRequest, NextResponse } from "next/server";
 
 export const PATCH = asyncWrapper(async (request: NextRequest) => {

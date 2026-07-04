@@ -1,6 +1,7 @@
 import { applicationsServices } from "@/features/applications/applications.services";
 import { asyncWrapper } from "@/lib/asyncWrapper";
 import connectDB from "@/lib/db";
+
 import { NextRequest, NextResponse } from "next/server";
 
 // Get applications by user id

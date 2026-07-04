@@ -1,40 +1,48 @@
+// lib/db.ts
 import mongoose from "mongoose";
 
-const cached = global.mongooseCache ?? { conn: null, promise: null };
+const MONGODB_URI = process.env.MONGODB_URI;
+
+if (!MONGODB_URI) {
+  throw new Error("Please define the MONGODB_URI environment variable");
+}
+
+interface MongooseCache {
+  conn: typeof mongoose | null;
+  promise: Promise<typeof mongoose> | null;
+}
+
+declare global {
+  var mongooseCache: MongooseCache | undefined;
+}
+
+const cached: MongooseCache = global.mongooseCache ?? {
+  conn: null,
+  promise: null,
+};
+
 global.mongooseCache = cached;
 
-const connectDB = async () => {
-  if (mongoose.connection.readyState === 1) {
-    return mongoose;
-  }
-
-  if (cached.conn && cached.conn.connection.readyState === 1) {
+async function connectDB(): Promise<typeof mongoose> {
+  if (cached.conn) {
     return cached.conn;
   }
 
-  if (cached.conn?.connection.readyState !== 1) {
-    cached.conn = null;
-  }
-
-  if (!process.env.MONGODB_URI) {
-    throw new Error("MONGODB_URI is not defined");
-  }
-
   if (!cached.promise) {
-    cached.promise = mongoose.connect(process.env.MONGODB_URI, {
-      serverSelectionTimeoutMS: 5000,
+    cached.promise = mongoose.connect(MONGODB_URI as string, {
+      bufferCommands: false,
+      dbName:'dev-jobboard-db'
     });
   }
 
   try {
     cached.conn = await cached.promise;
-    console.log(`Connected to MongoDB: ${cached.conn.connection.host}`);
-    return cached.conn;
   } catch (error) {
-    cached.conn = null;
     cached.promise = null;
     throw error;
   }
-};
+
+  return cached.conn;
+}
 
 export default connectDB;

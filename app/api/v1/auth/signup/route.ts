@@ -2,6 +2,7 @@ import { UserRoleType } from "@/constants/roles";
 import { authService } from "@/features/auth/auth.services";
 import { asyncWrapper } from "@/lib/asyncWrapper";
 import connectDB from "@/lib/db";
+
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = asyncWrapper(async (request: NextRequest) => {

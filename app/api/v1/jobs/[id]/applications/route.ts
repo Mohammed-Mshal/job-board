@@ -1,5 +1,6 @@
 import { asyncWrapper } from "@/lib/asyncWrapper";
 import connectDB from "@/lib/db";
+
 import { NextRequest, NextResponse } from "next/server";
 import { HttpError } from "@/lib/httpError";
 import { applicationsServices } from "@/features/applications/applications.services";
