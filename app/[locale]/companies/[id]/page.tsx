@@ -3,7 +3,11 @@ import {
   CompanyHeader,
   CompanyJobsSection,
 } from "@/components/CompanyPage"
-import { companyService } from "@/src/services/company.service"
+import { companiesService } from "@/features/companies/companies.services"
+import connectDB from "@/lib/db"
+import { HttpError } from "@/lib/httpError"
+import { serializeDocument } from "@/lib/serializeDocument"
+import { CompanyDetailResponse } from "@/types/company.types"
 import { getLocale, getTranslations } from "next-intl/server"
 import { notFound } from "next/navigation"
 
@@ -16,14 +20,18 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
   const t = await getTranslations("CompanyPage")
   const locale = await getLocale()
 
-  let data
-  try {
-    data = await companyService.getCompanyById(id)
-  } catch {
-    return notFound()
-  }
+  await connectDB()
 
-  if (!data) return notFound()
+  let data: CompanyDetailResponse
+  try {
+    const result = await companiesService.getCompanyById(id)
+    data = serializeDocument(result)
+  } catch (error) {
+    if (error instanceof HttpError && error.status === 404) {
+      return notFound()
+    }
+    throw error
+  }
 
   const { company, jobs } = data
   const memberSince = company.createdAt

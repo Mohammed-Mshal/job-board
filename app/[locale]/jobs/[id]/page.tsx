@@ -7,8 +7,11 @@ import {
 } from "@/components/JobPage"
 import { savedJobsService } from "@/features/saved-jobs/saved-jobs.services"
 import { applicationsServices } from "@/features/applications/applications.services"
+import { jobsService } from "@/features/jobs/jobs.services"
 import connectDB from "@/lib/db"
-import { jobService } from "@/src/services"
+import { HttpError } from "@/lib/httpError"
+import { serializeDocument } from "@/lib/serializeDocument"
+import { IJob } from "@/types/job.types"
 import { getLocale, getTranslations } from "next-intl/server"
 import { notFound } from "next/navigation"
 
@@ -21,16 +24,19 @@ export default async function JobPage({ params }: JobPageProps) {
   const t = await getTranslations("JobPage")
   const locale = await getLocale()
 
-  let job
+  await connectDB()
+
+  let job: IJob
   try {
-    job = await jobService.getJob(id)
-  } catch {
-    return notFound()
+    const result = await jobsService.getJobById(id)
+    job = serializeDocument(result) as IJob
+  } catch (error) {
+    if (error instanceof HttpError && error.status === 404) {
+      return notFound()
+    }
+    throw error
   }
 
-  if (!job) return notFound()
-
-  await connectDB()
   const [saveStatus, applicationStatus] = await Promise.all([
     savedJobsService.getSaveStatus(id),
     applicationsServices.getApplicationStatus(id),

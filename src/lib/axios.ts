@@ -18,11 +18,15 @@ function getBaseUrl(): string {
     return process.env.NEXT_PUBLIC_API_URL ?? "";
   }
 
-  return (
-    process.env.NEXT_PUBLIC_API_URL ??
-    process.env.API_URL ??
-    "http://localhost:3000"
-  );
+  if (process.env.NEXT_PUBLIC_API_URL) {
+    return process.env.NEXT_PUBLIC_API_URL;
+  }
+
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+
+  return process.env.API_URL ?? "http://localhost:3000";
 }
 
 function getClientLocale(): string {
