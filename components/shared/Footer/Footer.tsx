@@ -15,8 +15,21 @@ import FooterSocialLinks from './FooterSocialLinks'
 import { footerColumns } from './footer.config'
 import { socialIconEntries } from './footer.social'
 
-export default function Footer() {
+interface FooterProps {
+  siteName?: string
+  siteDescription?: string
+  footerCopyright?: string
+  footerTagline?: string
+}
+
+export default function Footer({
+  siteName,
+  siteDescription,
+  footerCopyright,
+  footerTagline,
+}: FooterProps) {
   const t = useTranslations('Footer')
+  const year = new Date().getFullYear()
 
   return (
     <footer
@@ -47,11 +60,11 @@ export default function Footer() {
                 className="size-10 object-contain"
               />
               <span className="text-xl font-semibold tracking-tight text-[#FAFAFA]">
-                Jobify
+                {siteName ?? 'Jobify'}
               </span>
             </Link>
             <p className="text-sm leading-relaxed text-[#A1A1AA] md:text-base">
-              {t('description')}
+              {siteDescription ?? t('description')}
             </p>
           </div>
 
@@ -118,8 +131,10 @@ export default function Footer() {
         {/* Bottom section */}
         <div className="border-t border-[#27272A] pt-8">
           <div className="flex flex-col gap-2 sm:flex-row items-center sm:justify-between">
-            <p className="text-sm text-[#A1A1AA]">{t('copyright', { year: new Date().getFullYear() })}</p>
-            <p className="text-xs text-[#71717A]">{t('tagline', { year: new Date().getFullYear() })}</p>
+            <p className="text-sm text-[#A1A1AA]">
+              {(footerCopyright ?? t('copyright', { year })).replace('{year}', String(year))}
+            </p>
+            <p className="text-xs text-[#71717A]">{footerTagline ?? t('tagline')}</p>
           </div>
         </div>
       </SlideUp>

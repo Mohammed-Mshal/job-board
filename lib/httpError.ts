@@ -1,15 +1,28 @@
+export interface ApiErrorBody extends Record<string, unknown> {
+  code?: string;
+  error?: string;
+  params?: Record<string, string | number>;
+  errors?:
+    | Record<string, string[]>
+    | Array<{ field: string; message: string }>;
+}
+
 export class HttpError extends Error {
   status: number;
-  body: Record<string, unknown>;
+  body: ApiErrorBody;
 
-  constructor(status: number, body: Record<string, unknown>) {
+  constructor(status: number, body: ApiErrorBody) {
     super(HttpError.extractMessage(body));
     this.name = "HttpError";
     this.status = status;
     this.body = body;
   }
 
-  static extractMessage(body: Record<string, unknown>): string {
+  static extractMessage(body: ApiErrorBody): string {
+    if (typeof body.code === "string") {
+      return body.code;
+    }
+
     if (typeof body.error === "string") {
       return body.error;
     }

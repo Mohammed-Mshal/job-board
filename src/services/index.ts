@@ -3,3 +3,4 @@ export { userService } from "./user.service";
 export { companyService } from "./company.service";
 export { jobService } from "./job.service";
 export { applicationService } from "./application.service";
+export { contactService } from "./contact.service";

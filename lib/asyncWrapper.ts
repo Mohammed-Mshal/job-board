@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { API_ERROR_CODES } from "./apiErrorCodes";
+import { getRequestLocale } from "./getRequestLocale";
 import { HttpError } from "./httpError";
+import { translateApiErrorBody } from "./translateApiError";
 
 export const asyncWrapper = (fn: (...args: any[]) => Promise<any>) => {
   return async (...args: any[]) => {
@@ -8,11 +11,25 @@ export const asyncWrapper = (fn: (...args: any[]) => Promise<any>) => {
       return await fn(...args);
     } catch (error) {
       console.error(error);
+      const request = args[0] as NextRequest | undefined;
+      const locale = getRequestLocale(request);
+
       if (error instanceof HttpError) {
-        return NextResponse.json(error.body, { status: error.status });
+        const body = translateApiErrorBody(error.body, locale);
+        return NextResponse.json(body, { status: error.status });
       }
+
       return NextResponse.json(
-        { error: error instanceof Error ? error.message : "Internal Server Error" },
+        translateApiErrorBody(
+          {
+            code: API_ERROR_CODES.INTERNAL_SERVER_ERROR,
+            error:
+              error instanceof Error
+                ? error.message
+                : API_ERROR_CODES.INTERNAL_SERVER_ERROR,
+          },
+          locale
+        ),
         { status: 500 }
       );
     }

@@ -16,6 +16,10 @@ export const POST = asyncWrapper(async (request: NextRequest) => {
   const description = formData.get("description") as string;
   const location = formData.get("location") as string;
   const profileImage = formData.get("profileImage") as File | null;
+  const teamSize = {
+    min: parseInt(formData.get("teamSizeMin") as unknown as string),
+    max: parseInt(formData.get("teamSizeMax") as unknown as string),
+  };
   const data = await authService.register(
     name,
     email,
@@ -23,6 +27,7 @@ export const POST = asyncWrapper(async (request: NextRequest) => {
     confirmPassword,
     description,
     location,
+    teamSize,
     profileImage,
     role
   );

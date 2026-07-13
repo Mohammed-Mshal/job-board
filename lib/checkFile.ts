@@ -1,19 +1,26 @@
-export type CheckFileResult = { error: string } | true;
+export type CheckFileResult =
+  | {
+      code: string;
+      params?: Record<string, string | number>;
+    }
+  | true;
 
 export function checkFile(
-    file: File | null,
-    maxSize: number,
-    allowedTypes: string[]
+  file: File | null,
+  maxSize: number,
+  allowedTypes: string[]
 ): CheckFileResult {
-    if (!file) {
-        return { error: "File is required" };
-    }
-    if (file.size > maxSize) {
-        return { error: `File size exceeds ${(maxSize / 1024 / 1024).toFixed(1)}MB limit` };
-    }
-    if (!allowedTypes.includes(file.type)) {
-        return { error: `File type "${file.type}" is not supported` };
-        
-    }
-    return true;
+  if (!file) {
+    return { code: "fileRequired" };
+  }
+  if (file.size > maxSize) {
+    return {
+      code: "fileSizeExceeds",
+      params: { maxSize: (maxSize / 1024 / 1024).toFixed(1) },
+    };
+  }
+  if (!allowedTypes.includes(file.type)) {
+    return { code: "fileTypeNotSupported" };
+  }
+  return true;
 }

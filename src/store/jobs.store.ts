@@ -1,5 +1,5 @@
-import { IJob, IJobFilters, JobStatusType } from "@/types/job.types";
-import axios, { AxiosError } from "axios";
+import { IJob, JobStatusType } from "@/types/job.types";
+import  { AxiosError } from "axios";
 import { create } from "zustand";
 import { jobService } from "../services";
 
@@ -21,6 +21,8 @@ interface JobsStore {
   salary: {
     min: number | null;
     max: number | null;
+    currency: string | null;
+    salaryPeriod: "year" | "month" | null;
   };
   fetchJobs: () => void;
   reset: () => void;
@@ -28,7 +30,7 @@ interface JobsStore {
   setLocation: (location: string) => void;
   setStatus: (status: JobStatusType | null) => void;
   setRequirements: (requirements: string[] | null) => void;
-  setSalary: (salary: { min: number | null; max: number | null }) => void;
+  setSalary: (salary: { min: number | null; max: number | null;currency: string | null; salaryPeriod: "month" | "year" | null  }) => void;
   setPage: (page: number) => void;
   setLimit: (limit: number) => void;
   setSortBy: (sortBy: string | null) => void;
@@ -53,7 +55,7 @@ export const useJobsStore = create<JobsStore>((set,get) => ({
   location: null,
   status: null,
   requirements: null,
-  salary: { min: null, max: null },
+  salary: { min: null, max: null, currency: null, salaryPeriod: null },
   
   fetchJobs: async () => {
     set({ loading: true });
@@ -68,9 +70,7 @@ export const useJobsStore = create<JobsStore>((set,get) => ({
         status:get().status ?? undefined,
         requirements:get().requirements ?? undefined,
         salary:get().salary ?? undefined,
-      });
-      console.log(response);
-      
+      });      
       set({ jobs: response.jobs, total: response.total, page: response.page, limit: response.limit, totalPages: response.totalPages });
     } catch (error) {
       set({ error: error instanceof AxiosError ? error.response?.data.error ?? "An unexpected error occurred" : "An unexpected error occurred" });
@@ -80,14 +80,27 @@ export const useJobsStore = create<JobsStore>((set,get) => ({
     }
   },
   reset: () => {
-    set({ jobs: [], total: 0, page: 1, limit: 10, totalPages: 0, error: null, loading: false, search: '', location: '', status: null, requirements: null, salary: { min: null, max: null } })
-    get().fetchJobs();
+    set({ 
+      jobs: [], 
+      total: 0, 
+      page: 1, 
+      limit: 10, 
+      totalPages: 0, 
+      error: null, 
+      loading: false, 
+      search: null, 
+      location: null, 
+      status: null, 
+      requirements: null, 
+      salary: { min: null, max: null, currency: null, salaryPeriod: null } 
+    });
+    void get().fetchJobs();
   },
   setSearch: (search: string) => set({ search }),
   setLocation: (location: string) => set({ location }),
   setStatus: (status: JobStatusType | null) => set({ status }),
   setRequirements: (requirements: string[] | null) => set({ requirements }),
-  setSalary: (salary: { min: number | null; max: number | null }) => set({ salary }),
+  setSalary: (salary: { min: number | null; max: number | null; currency: string | null; salaryPeriod: "month" | "year" | null }) => set({ salary: { ...salary } }),
   setPage: (page: number) => set({ page }),
   setLimit: (limit: number) => set({ limit }),
   setSortBy: (sortBy: string | null) => set({ sortBy }),
@@ -96,7 +109,7 @@ export const useJobsStore = create<JobsStore>((set,get) => ({
     set({
       status: null,
       requirements: null,
-      salary: { min: null, max: null },
+      salary: { min: null, max: null, currency: null, salaryPeriod: null },
       sortBy: null,
       sortOrder: 'desc',
       page: 1,

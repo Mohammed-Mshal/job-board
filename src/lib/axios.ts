@@ -25,6 +25,15 @@ function getBaseUrl(): string {
   );
 }
 
+function getClientLocale(): string {
+  if (typeof window === "undefined") {
+    return "en";
+  }
+
+  const match = window.location.pathname.match(/^\/(en|ar)(\/|$)/);
+  return match?.[1] ?? "en";
+}
+
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: getBaseUrl(),
   withCredentials: true,
@@ -37,6 +46,8 @@ const axiosInstance: AxiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
+    config.headers.set("x-locale", getClientLocale());
+
     if (config.data instanceof FormData) {
       config.headers.set("Content-Type", undefined) 
     }

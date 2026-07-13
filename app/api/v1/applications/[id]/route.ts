@@ -1,16 +1,16 @@
+import { apiError, API_ERROR_CODES } from "@/lib/apiError";
 import connectDB from "@/lib/db";
 
 import { asyncWrapper } from "@/lib/asyncWrapper";
 import { NextRequest, NextResponse } from "next/server";
 import { applicationsServices } from "@/features/applications/applications.services";
-import { HttpError } from "@/lib/httpError";
 import { IMediaDocument } from "@/models/media.model";
 // Get application by id
 export const GET = asyncWrapper(async (request: NextRequest, { params }: { params: { id: string } }) => {
     await connectDB();
     const { id } = await params;
     if (!id) {
-      throw new HttpError(400, { error: "Application ID is required" });
+      throw apiError(400, API_ERROR_CODES.APPLICATION_ID_REQUIRED);
     }
     const data = await applicationsServices.getApplicationById(id);
     return NextResponse.json(data);
@@ -21,7 +21,7 @@ export const PUT = asyncWrapper(async (request: NextRequest, { params }: { param
     await connectDB();
     const { id } = await params;
     if (!id) {
-      throw new HttpError(400, { error: "Application ID is required" });
+      throw apiError(400, API_ERROR_CODES.APPLICATION_ID_REQUIRED);
     }
     const formData = await request.formData();
     const coverLetter = formData.get("coverLetter");
@@ -42,7 +42,7 @@ export const PATCH = asyncWrapper(async (request: NextRequest, { params }: { par
     await connectDB();
     const { id } = await params;
     if (!id) {
-      throw new HttpError(400, { error: "Application ID is required" });
+      throw apiError(400, API_ERROR_CODES.APPLICATION_ID_REQUIRED);
     }
     const data = await applicationsServices.updateApplicationStatus(id, await request.json());
     return NextResponse.json(data, { status: 200 });
@@ -53,7 +53,7 @@ export const DELETE = asyncWrapper(async (request: NextRequest, { params }: { pa
     await connectDB();
     const { id } = await params;
     if (!id) {
-      throw new HttpError(400, { error: "Application ID is required" });
+      throw apiError(400, API_ERROR_CODES.APPLICATION_ID_REQUIRED);
     }
     const data = await applicationsServices.deleteApplication(id);
     return NextResponse.json(data);

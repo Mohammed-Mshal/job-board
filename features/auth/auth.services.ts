@@ -3,6 +3,7 @@ import { authRepository } from "./auth.repository";
 import { USER_ROLES, UserRoleType } from "@/constants/roles";
 import { loginValidation, registerValidation } from "./auth.validation";
 import { formatZodError } from "@/lib/formatError";
+import { apiError, API_ERROR_CODES } from "@/lib/apiError";
 import { HttpError } from "@/lib/httpError";
 import { mediaService } from "../media/media.services";
 import { createSession, deleteSession, verifySession } from "@/lib/auth";
@@ -17,13 +18,16 @@ export const authService = {
     }
     const user = await authRepository.findUserByEmail(email);
     if (!user) {
-      throw new HttpError(404, { error: "Account not found" });
+      throw apiError(404, API_ERROR_CODES.ACCOUNT_NOT_FOUND);
     }
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      throw new HttpError(400, { error: "Invalid password" });
+      throw apiError(400, API_ERROR_CODES.INVALID_PASSWORD);
     }
-    await createSession({ userId: user._id.toString(), name: user.name, role: user.role });
+    if ((user.status ?? "active") === "suspended") {
+      throw apiError(403, API_ERROR_CODES.ACCOUNT_SUSPENDED);
+    }
+    await createSession({ userId: user.userId.toString(), name: user.name, role: user.role });
     const { password:_password, ...publicUser } = user.toObject();
     return { message: "Account logged in successfully", user: publicUser };
   },
@@ -35,19 +39,23 @@ export const authService = {
     confirmPassword: string,
     description: string,
     location: string,
+    teamSize: {
+      min: number;
+      max: number;
+    },
     profileImage: File | null,
     role: UserRoleType
   ) => {
-    const isValidData = registerValidation({ name, email, password, confirmPassword, role ,description,location});
+    const isValidData = registerValidation({ name, email, password, confirmPassword, role ,description,location,teamSize});
     if (!isValidData.success) {
       throw new HttpError(400, { errors: formatZodError(isValidData.error) });
     }
     if (role !== USER_ROLES.USER && role !== USER_ROLES.COMPANY) {
-      throw new HttpError(400, { error: "Invalid role" });
+      throw apiError(400, API_ERROR_CODES.INVALID_ROLE);
     }
     const existingUser = await authRepository.findUserByEmail(email);
     if (existingUser) {
-      throw new HttpError(400, { error: "Email already in use" });
+      throw apiError(400, API_ERROR_CODES.EMAIL_ALREADY_IN_USE);
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     let media : IMediaDocument | null = null;
@@ -61,12 +69,13 @@ export const authService = {
       description,
       location,
       role,
-      media
+      media,
+      teamSize
     );
     if (!user) {
-      throw new HttpError(500, { error: "Failed to create account" });
+      throw apiError(500, API_ERROR_CODES.FAILED_TO_CREATE_ACCOUNT);
     }
-    await createSession({ userId: user._id.toString(), name: user.name, role: user.role });
+    await createSession({ userId: user.userId.toString(), name: user.name, role: user.role });
     return { message: "Account created successfully" };
   },
 
@@ -78,11 +87,11 @@ export const authService = {
   getUser: async (): Promise<IUserDocument> => {
     const isAccountLoggedIn = await verifySession();
     if (!isAccountLoggedIn) {
-      throw new HttpError(401, { error: "Unauthorized" });
+      throw apiError(401, API_ERROR_CODES.UNAUTHORIZED);
     }
     const user = await authRepository.findUserById(isAccountLoggedIn.userId);
     if (!user) {
-      throw new HttpError(404, { error: "Account not found" });
+      throw apiError(404, API_ERROR_CODES.ACCOUNT_NOT_FOUND);
     }
     return user;
   },
@@ -90,7 +99,15 @@ export const authService = {
   getCompanyUser: async (): Promise<IUserDocument> => {
     const user = await authService.getUser();
     if (user.role !== USER_ROLES.COMPANY) {
-      throw new HttpError(401, { error: "Unauthorized" });
+      throw apiError(401, API_ERROR_CODES.UNAUTHORIZED);
+    }
+    return user;
+  },
+
+  getAdminUser: async (): Promise<IUserDocument> => {
+    const user = await authService.getUser();
+    if (user.role !== USER_ROLES.ADMIN) {
+      throw apiError(403, API_ERROR_CODES.ADMIN_ACCESS_REQUIRED);
     }
     return user;
   },

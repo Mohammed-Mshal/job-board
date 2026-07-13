@@ -1,11 +1,11 @@
 import { escapeRegex } from "@/lib/escapeRegex";
-import { Job } from "@/models/job.model";
-import { IJob, JobStatus } from "@/types/job.types";
-import type {  QueryFilter } from "mongoose";
+import { IJobDocument, Job } from "@/models/job.model";
+import { JobStatus } from "@/types/job.types";
+import type { QueryFilter } from "mongoose";
 import { CreateJobSchema, SORT_BY_VALUES } from "./jobs.validation";
 import { IUserDocument, User } from "@/models/user.model";
 
-const SORT_FIELD_MAP: Record<(typeof SORT_BY_VALUES)[number], keyof IJob> = {
+const SORT_FIELD_MAP: Record<(typeof SORT_BY_VALUES)[number], keyof IJobDocument> = {
   createdAt: "createdAt",
   updatedAt: "updatedAt",
   title: "title",
@@ -21,18 +21,18 @@ const SORT_ORDER_MAP = {
 } as const;
 
 export const jobsRepository = {
-  createJob: async (company:IUserDocument, job: CreateJobSchema) => {
+  createJob: async (company:IUserDocument, job: CreateJobSchema) => {    
     return await Job.create({ ...job, status: JobStatus.OPEN , company });
   },
   getJobs: async (
     search: string,
     sortBy: (typeof SORT_BY_VALUES)[number],
     sortOrder: "asc" | "desc",
-    filter: QueryFilter<IJob>,
+    filter: QueryFilter<IJobDocument>,
     page: number,
     limit: number
   ) => {
-    const query: QueryFilter<IJob> = { ...filter };
+    const query: QueryFilter<IJobDocument> = { ...filter };
     const term = search.trim();
 
     if (term) {
@@ -73,12 +73,12 @@ export const jobsRepository = {
     };
   },
   getJobById: async (id: string) => {
-    return await Job.findById(id).populate({ path: "company", select: "-password" }).lean();
+    return await Job.findOne({jobId:id}).populate({ path: "company", select: "-password" ,populate:'profileImage'}).lean();
   },
-  updateJob: async (id: string, job: Partial<IJob>) => {
-    return await Job.findByIdAndUpdate(id, job, { new: true });
+  updateJob: async (id: string, job: Partial<IJobDocument>) => {
+    return await Job.findOneAndUpdate({ jobId: id }, job, { new: true });
   },
   deleteJob: async (id: string) => {
-    return await Job.findByIdAndDelete(id);
+    return await Job.findOneAndDelete({jobId:id});
   },
 };

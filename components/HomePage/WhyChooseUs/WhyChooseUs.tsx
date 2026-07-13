@@ -4,7 +4,9 @@ import { getTranslations } from 'next-intl/server';
 import { StaggerContainer, StaggerItem } from '@/components/motion';
 import WhyChooseUsCard from './WhyChooseUsCard';
 import WhyChooseUsSlider from './WhyChooseUsSlider';
-const whyChooseUsCards = [
+import { HomeWhyChooseUsCms } from '@/types/cms.types';
+
+const defaultCards = [
     {
         image: '/whyChooseUs1.svg',
         title: 'Smart Matching',
@@ -26,12 +28,18 @@ const whyChooseUsCards = [
         description: 'Deep insights into your hiring funnel with predictive data on candidate conversion.',
     },
 ]
-export default async function WhyChooseUs() {
+
+export default async function WhyChooseUs({
+  sectionContent,
+}: {
+  sectionContent?: HomeWhyChooseUsCms
+}) {
     const t = await getTranslations('WhyChooseUsSection');
+    const whyChooseUsCards = sectionContent?.cards?.length ? sectionContent.cards : defaultCards;
   return (
     <div className="why-choose-us">
         <div className="container xl:max-w-7xl mx-auto px-4 py-2 flex flex-col items-center justify-center gap-12">
-            <HeaderSection title={t('title')} description={t('description')} headerDirection="left" />
+            <HeaderSection title={sectionContent?.title ?? t('title')} description={sectionContent?.description ?? t('description')} headerDirection="left" />
             <WhyChooseUsSlider valueCards={whyChooseUsCards} />
         </div>
         

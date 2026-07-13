@@ -6,6 +6,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { toast } from "react-hot-toast";
 import { useRouter } from "@/i18n/navigation";
+import { useSearchParams } from "next/navigation";
 import { useAuthStore } from "@/store/auth.store";
 import { HttpError } from "@/lib/httpError";
 import { AxiosError } from "axios";
@@ -18,6 +19,8 @@ export default function LoginForm() {
     formState: { errors, isSubmitting },
   } = useForm<LoginCredentials>();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl");
   const login = useAuthStore((state) => state.login);
   const error = useAuthStore((state) => state.error);
   const t = useTranslations("forms");
@@ -25,6 +28,7 @@ export default function LoginForm() {
     try {
         await login(data)
         toast.success(t("loginSuccess"));
+        router.push(callbackUrl || "/");
         router.refresh();
     } catch (error) {      
         if (error instanceof AxiosError) {            

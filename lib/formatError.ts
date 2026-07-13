@@ -35,7 +35,7 @@ export function formatZodError(error: unknown): FieldError[] {
           : "general";
       return {
         field: key,
-        message: issue.message || "Invalid value",
+        message: issue.message || "invalidValue",
       };
     });
   }
@@ -48,5 +48,5 @@ export function formatZodError(error: unknown): FieldError[] {
     return [{ field: "general", message: error }];
   }
 
-  return [{ field: "general", message: "Invalid input" }];
+  return [{ field: "general", message: "invalidInput" }];
 }

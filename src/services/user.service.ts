@@ -3,13 +3,14 @@ import { ENDPOINTS } from "@/constants/endpoints";
 import {
   ChangePasswordPayload,
   PublicUser,
+  SavedJobsResponse,
   UpdateProfilePayload,
 } from "@/types/api.types";
 import { ApiResponse, SuccessResponse } from "@/types/response.types";
 
 export const userService = {
-  getProfile: async (): Promise<ApiResponse<PublicUser>> => {
-    return api.get<ApiResponse<PublicUser>>(ENDPOINTS.PROFILE.GET);
+  getProfile: async (): Promise<PublicUser> => {
+    return api.get<PublicUser>(ENDPOINTS.PROFILE.GET);
   },
 
   updateProfile: async (
@@ -31,6 +32,10 @@ export const userService = {
     const formData = new FormData();
     formData.append("profileImage", profileImage);
 
-    return api.post<ApiResponse<SuccessResponse>>(ENDPOINTS.PROFILE.UPLOAD_IMAGE, formData);
+    return api.patch<ApiResponse<SuccessResponse>>(ENDPOINTS.PROFILE.UPLOAD_IMAGE, formData);
+  },
+
+  getSavedJobs: async (): Promise<SavedJobsResponse> => {
+    return api.get<SavedJobsResponse>(ENDPOINTS.PROFILE.SAVED_JOBS);
   },
 };

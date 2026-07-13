@@ -5,15 +5,24 @@ import Image from 'next/image'
 import { useLocale } from 'next-intl';
 import { formatDistance } from 'date-fns';
 import { ar, enUS } from 'date-fns/locale';
-import { Bookmark} from 'lucide-react';
+import { Link } from '@/i18n/navigation';
+import SaveJobButton from '@/components/buttons/SaveJobButton';
 
-export default function JobCard({ job }: { job: IJob }) {
+export default function JobCard({
+  job,
+  initialSaved,
+  onSaveChange,
+}: {
+  job: IJob
+  initialSaved?: boolean
+  onSaveChange?: (jobId: string, saved: boolean) => void
+}) {
   const localeLang = useLocale();
-  const locale = localeLang === 'ar' ? ar : enUS;
-  console.log(job.company.profileImage?.url);
+  const locale = localeLang === 'ar' ? ar : enUS;  
   
   return (
-    <div className="job-card flex flex-col gap-3 bg-[#18181B] rounded-3xl p-8 border border-[rgba(73,68,84,0.1)]">
+    <div className="job-card flex flex-col gap-3 bg-[#18181B] rounded-3xl p-8 border border-[rgba(73,68,84,0.1)] relative">
+        <Link href={`/jobs/${job.jobId}`} className={`absolute top-0 left-0 w-full h-full z-10`}/>
         <div className="header-card flex items-start justify-between gap-4">
           <div className="image-profile h-16 w-16 rounded-full overflow-hidden">
             <Image src={job.company.profileImage?.url || ''} alt={job.company.name || ''} width={64} height={64} className="w-full h-full object-cover" />
@@ -61,9 +70,12 @@ export default function JobCard({ job }: { job: IJob }) {
               {formatDistance(new Date(job.createdAt), new Date(), { locale })}
             </span>
           </div>
-          <button type="button" className="bg-[#27272A] text-[#71717A] hover:text-[#FFFFFF] hover:bg-[#3F3F46] transition-all duration-300 text-sm font-bold size-12 flex items-center justify-center rounded-xl cursor-pointer" title="Save Job">
-            <Bookmark className="size-6" />
-          </button>
+          <SaveJobButton
+            jobId={job.jobId}
+            variant="icon"
+            initialSaved={initialSaved}
+            onSaveChange={onSaveChange}
+          />
         </div>
     </div>
   )

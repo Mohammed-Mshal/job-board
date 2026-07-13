@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { SearchCode } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import './login.css'
@@ -29,13 +29,15 @@ export default async function login() {
 
         </div>
         <div className="right-side w-full md:w-1/2 flex flex-col gap-3 justify-center p-8">
-          <LoginForm/>
+          <Suspense>
+            <LoginForm/>
+          </Suspense>
           <hr className="my-8 border-t border-[#27272A]"/>
           <div className="flex justify-center gap-1">
             <p className="text-[#A1A1AA] text-sm">
               {t('dont-have-an-account')}
             </p>
-            <Link href="/register" className="text-[#D0BCFF] text-sm font-bold">
+            <Link href="/signup" className="text-[#D0BCFF] text-sm font-bold">
               {t('register')}
             </Link>
           </div>

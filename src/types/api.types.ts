@@ -1,18 +1,36 @@
 import { UserRoleType } from "@/constants/roles";
+import { UserStatusType } from "@/constants/userStatus";
 import { ApplicationStatusType } from "@/types/applications.types";
 import { IJob, JobStatusType } from "@/types/job.types";
 import { IMedia } from "@/types/media.types";
 
 export interface PublicUser {
   _id: string;
+  userId: string;
   name: string;
   email: string;
   description: string;
   location: string;
   profileImage: IMedia | null;
   role: UserRoleType;
+  status: UserStatusType;
+  teamSize?: {
+    min: number;
+    max: number;
+  };
+  savedJobs?: string[];
   createdAt: string;
   updatedAt: string;
+}
+
+export interface SaveJobResponse {
+  saved: boolean;
+  message: string;
+}
+
+export interface SaveJobStatusResponse {
+  saved: boolean;
+  isAuthenticated: boolean;
 }
 
 export interface LoginCredentials {
@@ -36,6 +54,8 @@ export interface UpdateProfilePayload {
   password: string;
   description?: string;
   location?: string;
+  teamSizeMin?: number;
+  teamSizeMax?: number;
 }
 
 export interface ChangePasswordPayload {
@@ -49,6 +69,8 @@ export interface UpdateCompanyPayload {
   password: string;
   description?: string;
   location?: string;
+  teamSizeMin?: number;
+  teamSizeMax?: number;
 }
 
 export interface CreateJobPayload {
@@ -79,11 +101,16 @@ export interface GetJobsParams {
   limit?: number;
   status?: JobStatusType | null;
   location?: string;
+  mine?: boolean;
   salary?: {
     min?: number | null;
     max?: number | null;
   };
   requirements?: string[] | null;
+}
+
+export interface SavedJobsResponse {
+  jobs: IJob[];
 }
 
 export interface JobsListResponse {
@@ -105,6 +132,16 @@ export interface Application {
   updatedAt: string;
 }
 
+export interface ApplicationStatusResponse {
+  applied: boolean;
+  isAuthenticated: boolean;
+}
+
+export interface ApplyToJobResponse {
+  message: string;
+  application: Application;
+}
+
 export interface ApplyToJobPayload {
   jobId: string;
   coverLetter: string;
@@ -118,4 +155,33 @@ export interface UpdateApplicationStatusPayload {
 export interface ApplicationStatusUpdateResponse {
   message: string;
   application: Application;
+}
+
+export interface AdminUsersListResponse {
+  users: PublicUser[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+}
+
+export interface AdminUserStats {
+  total: number;
+  jobSeekers: number;
+  companies: number;
+  admins: number;
+  suspended: number;
+}
+
+export interface AdminUserUpdateResponse {
+  message: string;
+  user: PublicUser;
+}
+
+export interface GetAdminUsersParams {
+  search?: string;
+  role?: string;
+  status?: string;
+  page?: number;
+  limit?: number;
 }

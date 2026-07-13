@@ -99,6 +99,7 @@ export const useAuthStore = create<AuthState>((set, get) => {
         const user = await authService.me<Promise<PublicUser>>();
         set({ user, isAuthenticated: true });
       } catch (error) {
+        get().logout()
         set({ user: null, isAuthenticated: false });
       }
     },

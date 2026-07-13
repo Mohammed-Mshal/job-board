@@ -31,8 +31,8 @@ export default function FeaturePathSwiper({ jobs }: { jobs: IJob[] }) {
                 }}
                 modules={[Pagination, Autoplay]}
                 >
-                    {jobs.map((job, index) => (
-                        <SwiperSlide className="feature-path-swiper-slide" key={index}>
+                    {jobs.map((job) => (
+                        <SwiperSlide className="feature-path-swiper-slide" key={job.jobId}>
                             <JobCard job={job} />
                         </SwiperSlide>
                     ))}

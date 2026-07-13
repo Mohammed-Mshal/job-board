@@ -1,6 +1,6 @@
 import imageKit from "@/lib/imageKit";
 import { checkFile } from "@/lib/checkFile";
-import { HttpError } from "@/lib/httpError";
+import { apiError } from "@/lib/apiError";
 import { IMedia } from "@/types/media.types";
 import { mediaRepository } from "./media.repository";
 import { IMediaDocument } from "@/models/media.model";
@@ -9,7 +9,7 @@ export const mediaService = {
   createMedia: async (file: File, folder: string = "media", maxSize: number = 1024 * 1024 * 5, allowedTypes: string[] = ["image/jpeg", "image/png", "image/webp"]) : Promise<IMediaDocument> => {
     const checkFileResult = checkFile(file, maxSize, allowedTypes);
     if (checkFileResult !== true) {
-      throw new HttpError(400, { error: checkFileResult.error });
+      throw apiError(400, checkFileResult.code, checkFileResult.params);
     }
 
     const buffer = await file.arrayBuffer();

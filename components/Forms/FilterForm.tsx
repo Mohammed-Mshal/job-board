@@ -19,6 +19,8 @@ type FilterDraft = {
   sortOrder: 'asc' | 'desc' | null
   salaryMin: string
   salaryMax: string
+  currency: string | null
+  salaryPeriod: "year" | "month" | null
 }
 
 export default function FilterForm() {
@@ -44,6 +46,8 @@ export default function FilterForm() {
     sortOrder: 'desc',
     salaryMin: '',
     salaryMax: '',
+    currency: null,
+    salaryPeriod: null,
   })
 
   useEffect(() => {
@@ -55,8 +59,10 @@ export default function FilterForm() {
       sortOrder: sortOrder ?? 'desc',
       salaryMin: salary.min != null ? String(salary.min) : '',
       salaryMax: salary.max != null ? String(salary.max) : '',
+      currency: salary.currency ?? null,
+      salaryPeriod: salary.salaryPeriod ?? null,
     })
-  }, [filterState, status, sortBy, sortOrder, salary.min, salary.max])
+  }, [filterState, status, sortBy, sortOrder, salary.min, salary.max, salary.currency, salary.salaryPeriod])
 
   const handleApply = async () => {
     const parsedMin = draft.salaryMin.trim() ? Number(draft.salaryMin) : null
@@ -68,6 +74,8 @@ export default function FilterForm() {
     setSalary({
       min: Number.isFinite(parsedMin) ? parsedMin : null,
       max: Number.isFinite(parsedMax) ? parsedMax : null,
+      currency: draft.currency ?? null,
+      salaryPeriod: draft.salaryPeriod ?? null,
     })
     setPage(1)
     toggleFilterState()

@@ -2,26 +2,34 @@ import { USER_ROLES, UserRoleType } from "@/constants/roles";
 import { z } from "zod";
 
 const loginSchema = z.object({
-  email: z.string().email({ message: "Invalid email address" }),
+  email: z.string().email({ message: "invalidEmail" }),
   password: z
     .string()
-    .min(8, { message: "Password must be at least 8 characters long" }),
+    .min(8, { message: "passwordMin8" }),
 });
 
 const registerSchema = z.object({
   name: z
     .string()
-    .min(3, { message: "Name must be at least 3 characters long" }),
-  email: z.string().email({ message: "Invalid email address" }),
-  password: z.string().min(8, { message: "Password must be at least 8 characters long" }),
-  confirmPassword: z.string().min(8, { message: "Password must be at least 8 characters long" }),
+    .min(3, { message: "nameMin3" }),
+  email: z.string().email({ message: "invalidEmail" }),
+  password: z.string().min(8, { message: "passwordMin8" }),
+  confirmPassword: z.string().min(8, { message: "passwordMin8" }),
   role: z.enum(Object.values(USER_ROLES) as [UserRoleType, ...UserRoleType[]]),
-  location: z.string().min(3, { message: "Location must be at least 3 characters long" }),
-  description: z.string().min(10, { message: "Description must be at least 10 characters long" }),
+  location: z.string().min(3, { message: "locationMin3" }),
+  description: z.string().min(10, { message: "descriptionMin10" }),
+  teamSize: z.object({
+    min: z.number().min(1, { message: "teamSizeMin1" }),
+    max: z.number().min(1, { message: "teamSizeMin1" }),
+  }), 
 }).refine((data) => data.password === data.confirmPassword, {
-  path: ["confirmPassword"],
-  message: "Passwords do not match",
-});
+    path: ["confirmPassword"],
+    message: "passwordsDoNotMatch",
+  })
+  .refine((data) => data.teamSize.min <= data.teamSize.max, {
+    path: ["teamSize"],
+    message: "teamSizeMinMax",
+  });
 
 
 const loginValidation = (data: z.infer<typeof loginSchema>) =>

@@ -34,7 +34,7 @@ export const authService = {
   },
 
   logout: async () => {
-    return await api.post(ENDPOINTS.AUTH.LOGOUT);
+    return await api.delete(ENDPOINTS.AUTH.LOGOUT);
   },
 
   me: async <T>(): Promise<T> => {

@@ -38,7 +38,7 @@ export const footerColumns: FooterColumnConfig[] = [
       { labelKey: 'resources.blog', href: '/blog' },
       { labelKey: 'resources.helpCenter', href: '/help' },
       { labelKey: 'resources.documentation', href: '/docs' },
-      { labelKey: 'resources.contact', href: '/contact' },
+      { labelKey: 'resources.contact', href: '/contact-us' },
     ],
   },
   {

@@ -1,5 +1,6 @@
 import { escapeRegex } from "@/lib/escapeRegex";
-import { JobStatus, IJob } from "@/types/job.types";
+import { IJobDocument } from "@/models/job.model";
+import { JobStatus } from "@/types/job.types";
 import type { QueryFilter } from "mongoose";
 import { z } from "zod";
 
@@ -21,6 +22,10 @@ const getJobsQuerySchema = z.object({
   limit: z.coerce.number().int().min(1).max(100).default(10),
   status: z.nativeEnum(JobStatus).optional(),
   location: z.string().max(200).optional(),
+  mine: z
+    .string()
+    .optional()
+    .transform((value) => value === "true"),
 });
 
 export type GetJobsQuery = z.infer<typeof getJobsQuerySchema>;
@@ -28,8 +33,8 @@ export type GetJobsQuery = z.infer<typeof getJobsQuerySchema>;
 export const getJobsQueryValidation = (params: Record<string, string | undefined>) =>
   getJobsQuerySchema.safeParse(params);
 
-export function buildJobsFilter(data: GetJobsQuery): QueryFilter<IJob> {
-  const filter: QueryFilter<IJob> = {};
+export function buildJobsFilter(data: GetJobsQuery): QueryFilter<IJobDocument> {
+  const filter: QueryFilter<IJobDocument> = {};
 
   if (data.status) {
     filter.status = data.status;
@@ -43,20 +48,40 @@ export function buildJobsFilter(data: GetJobsQuery): QueryFilter<IJob> {
 }
 const salarySchema = z
   .object({
-    min: z.number().min(0, { message: "Min salary must be greater than or equal to 0" }),
-    max: z.number().min(0, { message: "Max salary must be greater than or equal to 0" }),
+    min: z.number().min(0, { message: "minSalaryGte0" }),
+    max: z.number().min(0, { message: "maxSalaryGte0" }),
+    salaryPeriod: z.enum(["year", "month"], {
+      error: "salaryPeriodRequired"
+    }),
+    currency: z.string().min(1, { message: "currencyRequired" }),
   })
   .refine((value) => value.min <= value.max, {
-    message: "Min salary must be less than or equal to max salary",
+    message: "minSalaryLteMax",
     path: ["max"],
   });
 
 export const createJobSchema = z.object({
-  title: z.string().min(3, { message: "Title must be at least 3 characters long" }),
-  description: z.string().min(10, { message: "Description must be at least 10 characters long" }),
-  location: z.string().min(1, { message: "Location is required" }),
+  title: z.string().min(3, { message: "titleMin3" }),
+  description: z.string().min(10, { message: "descriptionMin10" }),
+  location: z.string().min(1, { message: "locationRequired" }),
   salary: salarySchema,
-  requirements: z.array(z.string()).min(1, { message: "At least one requirement is required" }),
+  requirements: z.array(z.string()).min(1, { message: "atLeastOneRequirement" }),
+  experience: z.number().min(0, { message: "experienceMin0" }),
+  coreResponsibilities: z.array(z.string()).min(1, { message: "atLeastOneCoreResponsibility" }),
+  qualifications: z.array(z.string()).min(1, { message: "atLeastOneQualification" }),
+  jobType: z.string().min(1, { message: "jobTypeRequired" }),
+  workModel: z.string().min(1, { message: "workModelRequired" }),
+  benefits: z.array(z.string()).min(1, { message: "atLeastOneBenefit" }),
+  hiringProcess: z.array(z.string()).min(1, { message: "atLeastOneHiringProcess" }),
+  FAQ: z.array(z.object({
+    question: z.string().min(1, { message: "questionRequired" }),
+    answer: z.string().min(1, { message: "answerRequired" }),
+  })).min(1, { message: "atLeastOneFaq" }),
+  relocation: z.boolean().default(false),
+  visaSponsored: z.boolean().default(false),
+}).refine((data) => data.benefits.length >= 1 && data.hiringProcess.length >= 1 && data.FAQ.length >= 1, {
+  path: ["benefits", "hiringProcess", "FAQ"],
+  message: "benefitsHiringFaqRequired",
 });
 export type CreateJobSchema = z.infer<typeof createJobSchema>;
 export const createJobValidation = (data: CreateJobSchema) =>

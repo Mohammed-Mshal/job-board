@@ -2,9 +2,12 @@ import createMiddleware from 'next-intl/middleware';
 import {routing} from './i18n/routing';
 import {  NextRequest, NextResponse } from 'next/server';
 import { verifySession } from './lib/auth';
+import { USER_ROLES } from './constants/roles';
+
 const handleI18nRouting = createMiddleware(routing);
 const authPages= ['/login','/signup']
 const protectedPages = ['/dashboard','/profile']
+const adminPages = ['/admin']
 
 type NextProxy = (request : NextRequest) => NextResponse | Promise <NextResponse>
 type ProxyFactory =(next:NextProxy)=>NextProxy
@@ -23,11 +26,18 @@ const withAuth : ProxyFactory = (next)=>async (request: NextRequest)=> {
 
     const isAuthPage=authPages.some((page)=>pathname.includes(page))
     const isProtectedPage = protectedPages.some((page) => pathname.includes(page));
+    const isAdminPage = adminPages.some((page) => pathname.includes(page));
 
-    if (isProtectedPage && !session) {
+    if ((isProtectedPage || isAdminPage) && !session) {
         const loginUrl= new URL('/login',request.url)
         return  NextResponse.redirect(loginUrl)
     }
+
+    if (isAdminPage && session && session.role !== USER_ROLES.ADMIN) {
+        const homeURL= new URL('/',request.url)
+        return NextResponse.redirect(homeURL)
+    }
+
     if (isAuthPage && session) {
         const homeURL= new URL('/',request.url)
         return  NextResponse.redirect(homeURL)

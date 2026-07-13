@@ -9,7 +9,7 @@ export const authRepository = {
       .populate("profileImage");
   },
   findUserById: async (id: string) => {    
-    return await User.findById(id).populate("profileImage");
+    return await User.findOne({userId:id}).populate("profileImage");
   },
   createUser: async (
     name: string,
@@ -18,9 +18,13 @@ export const authRepository = {
     description: string,
     location: string,
     role: UserRoleType,
-    profileImage: IMediaDocument | null
+    profileImage: IMediaDocument | null,
+    teamSize: {
+      min: number;
+      max: number;
+    }
   ) => {
-    return await User.create({ name, email, password, description, location, role, profileImage });
+    return await User.create({ name, email, password, description, location, role, profileImage, teamSize });
   },
   updateUser: async (
     id: string,
@@ -28,11 +32,15 @@ export const authRepository = {
     password: string,
     description: string,
     location: string,
-    profileImage: IMediaDocument | null
+    profileImage: IMediaDocument | null,
+    teamSize: {
+      min: number;
+      max: number;
+    }
   ) => {
-    return await User.findByIdAndUpdate(
-      id,
-      { name, password, description, location, profileImage },
+    return await User.findOneAndUpdate(
+      {userId:id},
+      { name, password, description, location, profileImage, teamSize },
       { new: true }
     );
   },
