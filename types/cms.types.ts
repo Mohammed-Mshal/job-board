@@ -3,6 +3,9 @@ export type CmsLocale = "en" | "ar";
 export interface GeneralCmsContent {
   siteName: string;
   siteDescription: string;
+  keywords: string;
+  faviconUrl: string;
+  ogImageUrl: string;
   supportEmail: string;
   footerTagline: string;
   footerCopyright: string;

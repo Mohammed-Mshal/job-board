@@ -18,8 +18,7 @@ import SiteVisibilityProvider from "@/providers/SiteVisibilityProvider";
 import { filterFooterColumns } from "@/features/cms/cms.visibility";
 import { footerColumns } from "@/components/shared/Footer/footer.config";
 import { getCmsContent, getSiteVisibility } from "@/lib/getCmsContent";
-import { buildLocaleAlternates } from "@/lib/seo";
-import { getSiteUrl } from "@/lib/siteUrl";
+import { buildRootMetadata } from "@/lib/seo";
 
 const CairoFont = Cairo({
   weight: ['200', '300', '400', '500', '600', '700', '800', '900', '1000'],
@@ -35,39 +34,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const cms = await getCmsContent(locale);
-  const siteName = cms.general.siteName;
-  const siteDescription = cms.general.siteDescription;
-  const base = getSiteUrl();
 
-  return {
-    metadataBase: new URL(base),
-    title: {
-      default: siteName,
-      template: `%s | ${siteName}`,
-    },
-    description: siteDescription,
-    alternates: buildLocaleAlternates("/"),
-    openGraph: {
-      title: siteName,
-      description: siteDescription,
-      url: `${base}/${locale}`,
-      siteName,
-      locale: locale === "ar" ? "ar_SA" : "en_US",
-      alternateLocale: routing.locales
-        .filter((item) => item !== locale)
-        .map((item) => (item === "ar" ? "ar_SA" : "en_US")),
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: siteName,
-      description: siteDescription,
-    },
-    robots: {
-      index: true,
-      follow: true,
-    },
-  };
+  return buildRootMetadata({ locale, general: cms.general });
 }
 
 export default async function RootLayout({

@@ -8,6 +8,9 @@ import {
 const generalSchema = z.object({
   siteName: z.string().min(1),
   siteDescription: z.string().min(1),
+  keywords: z.string().min(1),
+  faviconUrl: z.string().min(1),
+  ogImageUrl: z.string().min(1),
   supportEmail: z.string().email(),
   footerTagline: z.string().min(1),
   footerCopyright: z.string().min(1),

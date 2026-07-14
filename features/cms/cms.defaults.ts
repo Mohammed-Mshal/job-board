@@ -100,6 +100,10 @@ const enDefaults: LocaleCmsContent = {
     siteName: "Jobify",
     siteDescription:
       "Connecting talented professionals with leading companies worldwide.",
+    keywords:
+      "jobs, careers, hiring, job board, recruitment, talent, employers, job search",
+    faviconUrl: "/jobify-logo.svg",
+    ogImageUrl: "/career-card.png",
     supportEmail: "support@jobify.com",
     footerTagline: "Built for modern hiring.",
     footerCopyright: "© {year} Jobify. All rights reserved.",
@@ -240,6 +244,10 @@ const arDefaults: LocaleCmsContent = {
   general: {
     siteName: "Jobify",
     siteDescription: "نربط المحترفين الموهوبين بأفضل الشركات حول العالم.",
+    keywords:
+      "وظائف, توظيف, بحث عن عمل, فرص عمل, شركات, مواهب, لوحة وظائف, توظيف محترفين",
+    faviconUrl: "/jobify-logo.svg",
+    ogImageUrl: "/career-card.png",
     supportEmail: "support@jobify.com",
     footerTagline: "صُمم للتوظيف الحديث.",
     footerCopyright: "© {year} Jobify. جميع الحقوق محفوظة.",
