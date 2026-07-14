@@ -14,6 +14,7 @@ import {
   ContactSubmissionStatus,
   LocaleCmsContent,
   SiteCmsDocument,
+  SiteVisibilitySettings,
 } from "@/types/cms.types";
 import { UserRoleType } from "@/constants/roles";
 import { UserStatusType } from "@/constants/userStatus";
@@ -39,6 +40,12 @@ export const adminService = {
     data: unknown
   ): Promise<{ message: string; content: Record<CmsLocale, LocaleCmsContent> }> => {
     return api.put(ENDPOINTS.CMS.ADMIN, { locale, section, data });
+  },
+
+  updateVisibility: async (
+    visibility: SiteVisibilitySettings
+  ): Promise<{ message: string; visibility: SiteVisibilitySettings }> => {
+    return api.patch(ENDPOINTS.CMS.ADMIN, { visibility });
   },
 
   getSubmissions: async (

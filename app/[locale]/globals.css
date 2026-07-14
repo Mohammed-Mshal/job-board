@@ -18,7 +18,18 @@
 
   --card: #111113;
   --card-secondary: #18181b;
+  --card-secondary-hover: #1f1f23;
   --card-hover: #1f1f23;
+
+  --accent: #d0bcff;
+  --accent-muted: rgba(208, 188, 255, 0.1);
+  --accent-border: rgba(208, 188, 255, 0.2);
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
 
   /* =========================
      PRIMARY BRAND
@@ -125,6 +136,13 @@ html {
     color: var(--foreground);
   }
 
+  button {
+    cursor: pointer;
+    height: fit-content  !important;
+  }
+  .admin-toggle{
+    height: 28px !important;
+  }
   .card {
     background: var(--card);
     border: 1px solid var(--border);
@@ -146,6 +164,7 @@ html {
   .btn-primary:hover {
     background-position: -200% 100%;
   }
+
   .btn-red {
     background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%);
     color: #fff;
@@ -157,6 +176,7 @@ html {
     background-position: 100% 0;
     filter: brightness(1.08);
   }
+
   .base-btn:hover {
     background-position: 100% 0;
   }
@@ -230,6 +250,152 @@ html {
 
   .btn-language {
     @apply flex items-center gap-1 transition-all duration-300 cursor-pointer text-[#E7E0ED] hover:text-[#8b5cf6];
+  }
+
+  .page-container {
+    @apply container mx-auto px-4 xl:max-w-7xl;
+  }
+
+  .page-stack {
+    @apply space-y-8 pb-20 lg:space-y-12;
+  }
+
+  .surface-card {
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border);
+    background: var(--card-secondary);
+    padding: 1.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .surface-card {
+      padding: 2rem;
+    }
+  }
+
+  .heading-section {
+    @apply mb-6 text-xl font-semibold;
+    color: var(--foreground);
+  }
+
+  .heading-subsection {
+    @apply mb-3 text-lg font-semibold;
+    color: var(--foreground);
+  }
+
+  .text-body {
+    @apply text-base leading-relaxed;
+    color: var(--foreground-secondary);
+  }
+
+  .text-body-sm {
+    @apply text-sm leading-relaxed;
+    color: var(--foreground-muted);
+  }
+
+  .text-caption {
+    @apply text-sm;
+    color: var(--foreground-disabled);
+  }
+
+  .text-link {
+    @apply text-sm font-semibold transition-colors;
+    color: var(--accent);
+  }
+
+  .text-link:hover {
+    color: var(--primary);
+  }
+
+  .badge-subtitle {
+    @apply inline-flex items-center rounded-full px-4 py-1 text-xs font-bold uppercase tracking-wider;
+    border: 1px solid var(--accent-border);
+    background: var(--accent-muted);
+    color: var(--accent);
+  }
+
+  .form-stack {
+    @apply flex w-full flex-col gap-6;
+  }
+
+  .form-grid {
+    @apply grid gap-6 md:grid-cols-2;
+  }
+
+  .form-field {
+    @apply flex flex-col gap-2;
+  }
+
+  .form-error {
+    @apply text-sm;
+    color: var(--danger);
+  }
+
+  .form-textarea {
+    @apply w-full resize-none rounded-xl border px-4 py-3 text-sm outline-none transition-[color,box-shadow,border-color] disabled:cursor-not-allowed disabled:opacity-50;
+    border-color: var(--border);
+    background: var(--input);
+    color: var(--foreground);
+  }
+
+  .form-textarea::placeholder {
+    color: var(--foreground-disabled);
+  }
+
+  .form-textarea:focus {
+    border-color: var(--input-focus);
+    box-shadow: var(--shadow-primary);
+  }
+
+  .form-divider {
+    @apply my-8 border-t;
+    border-color: var(--border);
+  }
+
+  .form-footer {
+    @apply flex justify-center gap-1;
+  }
+
+  .hero-section {
+    @apply pt-20 pb-8;
+  }
+
+  .hero-inner {
+    @apply container mx-auto flex max-w-4xl flex-col items-center gap-6 px-4 text-center xl:max-w-7xl;
+  }
+
+  .hero-title {
+    @apply text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl;
+    color: var(--foreground);
+  }
+
+  .hero-title-accent {
+    @apply bg-gradient-to-r from-[#D0BCFF] to-[#A078FF] bg-clip-text text-transparent;
+  }
+
+  .hero-description {
+    @apply max-w-2xl text-base lg:text-lg;
+    color: var(--foreground-muted);
+  }
+
+  .auth-panel {
+    @apply flex w-full flex-col justify-center gap-6 p-6 md:w-1/2 lg:p-8;
+  }
+
+  .auth-title {
+    @apply text-2xl font-bold leading-tight text-balance sm:text-3xl lg:text-4xl xl:text-5xl;
+    color: var(--foreground);
+  }
+
+  .auth-description {
+    @apply text-base lg:text-lg;
+    color: var(--foreground-muted);
+  }
+
+  .icon-badge {
+    @apply flex h-11 w-11 shrink-0 items-center justify-center rounded-xl;
+    background: var(--accent-muted);
+    color: var(--accent);
   }
 }
 

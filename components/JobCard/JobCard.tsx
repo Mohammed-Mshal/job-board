@@ -21,7 +21,7 @@ export default function JobCard({
   const locale = localeLang === 'ar' ? ar : enUS;  
   
   return (
-    <div className="job-card flex flex-col gap-3 bg-[#18181B] rounded-3xl p-8 border border-[rgba(73,68,84,0.1)] relative">
+    <div className="job-card flex flex-col gap-3 bg-[#18181B] rounded-3xl p-8 border border-[rgba(73,68,84,0.1)] relative hover:bg-[#211E27] transition-all duration-300">
         <Link href={`/jobs/${job.jobId}`} className={`absolute top-0 left-0 w-full h-full z-10`}/>
         <div className="header-card flex items-start justify-between gap-4">
           <div className="image-profile h-16 w-16 rounded-full overflow-hidden">

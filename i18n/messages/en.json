@@ -170,6 +170,22 @@
         "dont-have-an-account": "Don't have an account?",
         "register": "Register for free"
     },
+    "Signup": {
+        "title": "Create your account",
+        "description": "Join the high-performance network of top companies and candidates.",
+        "already-have-account": "Already have an account?",
+        "login": "Log in",
+        "role": {
+            "candidate": {
+                "title": "I'm a Candidate",
+                "description": "Explore elite career opportunities and manage your applications."
+            },
+            "recruiter": {
+                "title": "I'm a Recruiter",
+                "description": "Source premium talent and manage your company's hiring pipeline."
+            }
+        }
+    },
     "forms":{
         "email": {
             "label": "Email",
@@ -555,7 +571,8 @@
             "contact": "Contact Page",
             "users": "Users",
             "testimonials": "Reviews",
-            "submissions": "Messages"
+            "submissions": "Messages",
+            "visibility": "Visibility"
         },
         "overview": {
             "title": "Content management",
@@ -564,6 +581,8 @@
             "home": "Home page content",
             "about": "About us content",
             "contact": "Contact page info",
+            "visibility": "Sections & pages",
+            "manage-visibility": "Enable or disable pages and home sections",
             "users": "User management",
             "submissions": "Contact messages",
             "testimonials-reviews": "User reviews",
@@ -591,6 +610,51 @@
             "saving": "Saving...",
             "success": "General info updated successfully.",
             "error": "Failed to update general info."
+        },
+        "visibility": {
+            "title": "Sections & pages visibility",
+            "description": "Control which home page sections, pages, and navigation links are visible to visitors. Disabled pages return 404 and are hidden from the footer.",
+            "home-sections": "Home page sections",
+            "pages-section": "Pages",
+            "navigation-section": "Header navigation",
+            "navigation-hint": "Navigation links also require the related page to be enabled.",
+            "save": "Save visibility",
+            "saving": "Saving...",
+            "success": "Visibility settings updated successfully.",
+            "error": "Failed to update visibility settings.",
+            "home": {
+                "banner": "Banner",
+                "videoSection": "Video section",
+                "partnerTicker": "Partner ticker",
+                "ourValue": "Our values",
+                "howItWorks": "How it works",
+                "whyChooseUs": "Why choose us",
+                "featurePath": "Featured jobs",
+                "testimonials": "Testimonials"
+            },
+            "pageLabels": {
+                "jobs": "Jobs listing",
+                "companies": "Companies listing",
+                "about": "About us",
+                "contact": "Contact us",
+                "privacy": "Privacy policy",
+                "terms": "Terms of service",
+                "cookies": "Cookies policy",
+                "security": "Security page",
+                "help": "Help center",
+                "docs": "Documentation",
+                "pricing": "Pricing",
+                "candidates": "Find candidates",
+                "careerResources": "Career resources",
+                "applications": "Applications page"
+            },
+            "navigation": {
+                "home": "Home",
+                "jobs": "Browse jobs",
+                "companies": "Companies",
+                "about": "About us",
+                "contact": "Contact us"
+            }
         },
         "home": {
             "title": "Home page",
@@ -773,6 +837,369 @@
             }
         }
     },
+    "PrivacyPage": {
+        "subtitle": "Legal",
+        "title": "Privacy",
+        "titleHighlight": "Policy",
+        "description": "How Jobify collects, uses, and protects your personal information.",
+        "lastUpdated": "Last updated: July 2026",
+        "sections": [
+            {
+                "title": "Information we collect",
+                "paragraphs": [
+                    "We collect information you provide when creating an account, applying to jobs, posting roles, or contacting support — including name, email, profile details, resumes, and messages.",
+                    "We also collect technical data such as browser type, device information, IP address, and usage analytics to keep the platform secure and improve performance."
+                ]
+            },
+            {
+                "title": "How we use your data",
+                "paragraphs": [
+                    "Your data is used to operate the job board, match candidates with companies, process applications, authenticate users, and communicate important account updates.",
+                    "We do not sell your personal information. Data is shared only with companies you apply to, service providers that help us run Jobify, or when required by law."
+                ]
+            },
+            {
+                "title": "Your rights",
+                "paragraphs": [
+                    "You may access, update, or delete your profile information from your account settings. You can also contact us to request data export or account removal.",
+                    "If you are in a region with additional privacy rights, we will honor applicable requests in accordance with local regulations."
+                ]
+            }
+        ]
+    },
+    "TermsPage": {
+        "subtitle": "Legal",
+        "title": "Terms of",
+        "titleHighlight": "Service",
+        "description": "The rules and guidelines for using the Jobify platform.",
+        "lastUpdated": "Last updated: July 2026",
+        "sections": [
+            {
+                "title": "Acceptance of terms",
+                "paragraphs": [
+                    "By accessing or using Jobify, you agree to these Terms of Service and our Privacy Policy. If you do not agree, please do not use the platform.",
+                    "We may update these terms from time to time. Continued use after changes constitutes acceptance of the revised terms."
+                ]
+            },
+            {
+                "title": "User responsibilities",
+                "paragraphs": [
+                    "You must provide accurate information, keep your credentials secure, and use Jobify only for lawful hiring and job-seeking purposes.",
+                    "Companies are responsible for the accuracy of job listings. Candidates are responsible for the content of applications and uploaded documents."
+                ]
+            },
+            {
+                "title": "Limitation of liability",
+                "paragraphs": [
+                    "Jobify provides a platform to connect employers and candidates. We do not guarantee hiring outcomes, job availability, or the conduct of any user.",
+                    "To the fullest extent permitted by law, Jobify is not liable for indirect, incidental, or consequential damages arising from use of the service."
+                ]
+            }
+        ]
+    },
+    "CookiesPage": {
+        "subtitle": "Legal",
+        "title": "Cookies",
+        "titleHighlight": "Policy",
+        "description": "How Jobify uses cookies and similar technologies.",
+        "lastUpdated": "Last updated: July 2026",
+        "sections": [
+            {
+                "title": "What are cookies?",
+                "paragraphs": [
+                    "Cookies are small text files stored on your device that help websites remember preferences, keep you signed in, and understand how the site is used.",
+                    "Jobify uses cookies and similar storage technologies to deliver core functionality and improve your experience."
+                ]
+            },
+            {
+                "title": "Cookies we use",
+                "paragraphs": [
+                    "Essential cookies power authentication, security (including CSRF protection), locale preferences, and session management. These are required for the platform to function.",
+                    "Analytics cookies help us understand traffic patterns and improve performance. You can control non-essential cookies through your browser settings."
+                ]
+            },
+            {
+                "title": "Managing cookies",
+                "paragraphs": [
+                    "Most browsers allow you to block or delete cookies. Note that disabling essential cookies may prevent you from logging in or using key features.",
+                    "For questions about our cookie practices, contact us through the Help Center or Contact page."
+                ]
+            }
+        ]
+    },
+    "SecurityPage": {
+        "subtitle": "Trust",
+        "title": "Platform",
+        "titleHighlight": "Security",
+        "description": "How Jobify protects your account, data, and hiring workflows.",
+        "sections": [
+            {
+                "title": "Authentication & access",
+                "paragraphs": [
+                    "Sessions use HTTP-only cookies with signed JWT tokens. Passwords are hashed with bcrypt and never stored in plain text.",
+                    "Role-based access ensures companies, candidates, and admins can only perform actions appropriate to their account type."
+                ]
+            },
+            {
+                "title": "Data protection",
+                "paragraphs": [
+                    "All API inputs are validated server-side. File uploads are scanned for type and size. Sensitive routes are rate-limited to prevent abuse.",
+                    "We use CSRF protection on state-changing requests and localized error handling to avoid leaking internal system details."
+                ]
+            },
+            {
+                "title": "Reporting issues",
+                "paragraphs": [
+                    "If you discover a security vulnerability, please contact us privately rather than posting publicly. We investigate all good-faith reports promptly.",
+                    "For account security concerns, change your password immediately and reach out to our support team."
+                ]
+            }
+        ],
+        "cta": {
+            "title": "Need help with security?",
+            "description": "Our team can assist with account recovery, suspicious activity, and compliance questions.",
+            "primary": "Contact support",
+            "secondary": "Privacy policy"
+        }
+    },
+    "HelpPage": {
+        "subtitle": "Support",
+        "title": "Help",
+        "titleHighlight": "Center",
+        "description": "Answers to common questions about accounts, jobs, and applications.",
+        "faqs": [
+            {
+                "question": "How do I create an account?",
+                "answer": "Click Sign up, choose Candidate or Recruiter, complete the form, and verify your email. You can update your profile anytime from the Profile page."
+            },
+            {
+                "question": "How do I apply for a job?",
+                "answer": "Open a job listing, click Apply, upload your resume, and submit a cover letter. You can track application status from your Profile under Applications."
+            },
+            {
+                "question": "How can companies post jobs?",
+                "answer": "Register as a Recruiter, complete your company profile, then create job listings from your Profile dashboard. Open roles appear on the Jobs page."
+            },
+            {
+                "question": "I forgot my password. What should I do?",
+                "answer": "Use the login page and contact support if you need account recovery assistance. We recommend using a strong, unique password."
+            },
+            {
+                "question": "Why was my account suspended?",
+                "answer": "Accounts may be suspended for policy violations or suspicious activity. Contact support if you believe this was a mistake."
+            }
+        ],
+        "cta": {
+            "title": "Still need help?",
+            "description": "Reach out to our team and we will respond as soon as possible.",
+            "primary": "Contact us",
+            "secondary": "View docs"
+        }
+    },
+    "DocsPage": {
+        "subtitle": "Resources",
+        "title": "Product",
+        "titleHighlight": "Documentation",
+        "description": "Guides and references for using Jobify as a candidate, recruiter, or developer.",
+        "intro": {
+            "title": "Getting oriented",
+            "paragraphs": [
+                "Jobify connects job seekers and companies through a unified platform for discovery, applications, and hiring workflows.",
+                "Use the resources below to learn core features, security practices, and integration options."
+            ]
+        },
+        "links": [
+            {
+                "title": "Help Center",
+                "description": "Step-by-step answers for account setup, applications, and recruiter tools.",
+                "href": "/help"
+            },
+            {
+                "title": "Security overview",
+                "description": "Learn how we protect sessions, data, and platform access.",
+                "href": "/security"
+            },
+            {
+                "title": "Privacy & data",
+                "description": "Understand what we collect and how your information is handled.",
+                "href": "/privacy"
+            },
+            {
+                "title": "Contact & support",
+                "description": "Get in touch for partnerships, billing, or technical assistance.",
+                "href": "/contact-us"
+            }
+        ]
+    },
+    "PricingPage": {
+        "subtitle": "Companies",
+        "title": "Simple",
+        "titleHighlight": "Pricing",
+        "description": "Flexible plans for teams hiring at any scale.",
+        "plans": [
+            {
+                "name": "Starter",
+                "price": "Free",
+                "period": "",
+                "description": "For small teams posting their first roles.",
+                "features": ["Up to 3 active job posts", "Basic company profile", "Applicant inbox", "Email support"],
+                "cta": "Get started",
+                "href": "/signup"
+            },
+            {
+                "name": "Growth",
+                "price": "$49",
+                "period": "month",
+                "description": "For growing teams with regular hiring needs.",
+                "features": ["Unlimited job posts", "Featured listings", "Candidate search", "Priority support"],
+                "highlighted": true,
+                "cta": "Start free trial",
+                "href": "/signup"
+            },
+            {
+                "name": "Enterprise",
+                "price": "Custom",
+                "period": "",
+                "description": "For organizations with advanced compliance and volume needs.",
+                "features": ["Dedicated account manager", "Custom integrations", "SLA & SSO options", "Volume discounts"],
+                "cta": "Contact sales",
+                "href": "/contact-us"
+            }
+        ],
+        "note": {
+            "title": "Billing questions",
+            "paragraphs": [
+                "All plans include secure hosting, application tracking, and bilingual (English/Arabic) support.",
+                "Contact our team for annual billing, invoicing, or custom enterprise agreements."
+            ]
+        }
+    },
+    "CandidatesPage": {
+        "subtitle": "Recruiters",
+        "title": "Find top",
+        "titleHighlight": "Candidates",
+        "description": "Discover qualified professionals and manage your hiring pipeline on Jobify.",
+        "features": [
+            {
+                "title": "Rich candidate profiles",
+                "description": "Review skills, experience, locations, and application history in one place."
+            },
+            {
+                "title": "Smart job matching",
+                "description": "Publish roles that reach relevant candidates browsing jobs and companies."
+            },
+            {
+                "title": "Application management",
+                "description": "Track applicants, update statuses, and communicate decisions efficiently."
+            },
+            {
+                "title": "Employer branding",
+                "description": "Showcase your company culture with a polished public company profile."
+            }
+        ],
+        "cta": {
+            "title": "Ready to hire?",
+            "description": "Create a recruiter account and start posting roles in minutes.",
+            "primary": "Create company account",
+            "secondary": "View pricing"
+        }
+    },
+    "CareerResourcesPage": {
+        "subtitle": "Candidates",
+        "title": "Career",
+        "titleHighlight": "Resources",
+        "description": "Guides and tools to help you search smarter and land your next role.",
+        "features": [
+            {
+                "title": "Job search strategies",
+                "description": "Learn how to filter roles, save listings, and tailor applications for better results."
+            },
+            {
+                "title": "Resume best practices",
+                "description": "Tips for formatting resumes and cover letters that stand out to recruiters."
+            },
+            {
+                "title": "Interview preparation",
+                "description": "Prepare for common questions and research companies before you apply."
+            },
+            {
+                "title": "Profile optimization",
+                "description": "Complete your Jobify profile to improve visibility and application success."
+            }
+        ],
+        "cta": {
+            "title": "Start your search",
+            "description": "Browse open roles from companies hiring on Jobify today.",
+            "primary": "Browse jobs",
+            "secondary": "Create account"
+        }
+    },
+    "ApplicationsPage": {
+        "subtitle": "Candidates",
+        "title": "Track your",
+        "titleHighlight": "Applications",
+        "description": "Apply to jobs, monitor status updates, and manage your pipeline in one dashboard.",
+        "features": [
+            {
+                "title": "One-click apply",
+                "description": "Submit applications with your resume and cover letter directly from job listings."
+            },
+            {
+                "title": "Real-time status",
+                "description": "See whether applications are pending, accepted, or rejected from your profile."
+            },
+            {
+                "title": "Stay organized",
+                "description": "Keep a clear history of every role you've applied to and follow up accordingly."
+            },
+            {
+                "title": "Saved jobs",
+                "description": "Bookmark interesting listings and apply when you're ready."
+            }
+        ],
+        "cta": {
+            "title": "View your applications",
+            "description": "Sign in to access your application dashboard and saved jobs.",
+            "primary": "Go to profile",
+            "secondary": "Sign in"
+        }
+    },
+    "SEO": {
+        "home-title": "Jobify | Find your next career",
+        "home-description": "Discover open roles, explore top companies, and apply to jobs that match your skills.",
+        "jobs-title": "Browse jobs",
+        "jobs-description": "Explore open roles from top companies and apply in one place.",
+        "job-title": "{title} at {company}",
+        "job-description": "{title} in {location}. Apply now on Jobify.",
+        "companies-title": "Browse companies",
+        "companies-description": "Discover companies hiring talented professionals.",
+        "company-title": "{name} | Company profile",
+        "company-description": "Learn about {name} and explore open positions.",
+        "about-title": "About us",
+        "about-description": "Learn about our mission to connect talent with opportunity.",
+        "contact-title": "Contact us",
+        "contact-description": "Get in touch with our team for support and partnerships.",
+        "privacy-title": "Privacy Policy",
+        "privacy-description": "Learn how Jobify collects, uses, and protects your personal data.",
+        "terms-title": "Terms of Service",
+        "terms-description": "Read the terms and conditions for using the Jobify platform.",
+        "cookies-title": "Cookies Policy",
+        "cookies-description": "Understand how Jobify uses cookies and similar technologies.",
+        "security-title": "Platform Security",
+        "security-description": "How Jobify protects accounts, data, and hiring workflows.",
+        "help-title": "Help Center",
+        "help-description": "Find answers to common questions about Jobify.",
+        "docs-title": "Documentation",
+        "docs-description": "Guides and references for using Jobify.",
+        "pricing-title": "Pricing",
+        "pricing-description": "Plans and pricing for companies hiring on Jobify.",
+        "candidates-title": "Find Candidates",
+        "candidates-description": "Discover and hire qualified professionals on Jobify.",
+        "career-resources-title": "Career Resources",
+        "career-resources-description": "Guides and tools to help you land your next role.",
+        "applications-title": "Applications",
+        "applications-description": "Track and manage your job applications on Jobify."
+    },
     "ApiErrors": {
         "internalServerError": "Internal server error",
         "unauthorized": "Unauthorized",
@@ -814,7 +1241,9 @@
         "submissionNotFound": "Submission not found",
         "fileRequired": "File is required",
         "fileSizeExceeds": "File size exceeds {maxSize}MB limit",
-        "fileTypeNotSupported": "File type is not supported"
+        "fileTypeNotSupported": "File type is not supported",
+        "tooManyRequests": "Too many requests. Please try again later.",
+        "invalidCsrfToken": "Invalid or missing security token. Refresh the page and try again."
     },
     "ValidationErrors": {
         "invalidEmail": "Invalid email address",

@@ -44,13 +44,14 @@ export const authService = {
       max: number;
     },
     profileImage: File | null,
-    role: UserRoleType
+    role: string
   ) => {
     const isValidData = registerValidation({ name, email, password, confirmPassword, role ,description,location,teamSize});
     if (!isValidData.success) {
       throw new HttpError(400, { errors: formatZodError(isValidData.error) });
     }
-    if (role !== USER_ROLES.USER && role !== USER_ROLES.COMPANY) {
+    const validatedRole = isValidData.data.role;
+    if (validatedRole !== USER_ROLES.USER && validatedRole !== USER_ROLES.COMPANY) {
       throw apiError(400, API_ERROR_CODES.INVALID_ROLE);
     }
     const existingUser = await authRepository.findUserByEmail(email);
@@ -68,7 +69,7 @@ export const authService = {
       hashedPassword,
       description,
       location,
-      role,
+      validatedRole,
       media,
       teamSize
     );

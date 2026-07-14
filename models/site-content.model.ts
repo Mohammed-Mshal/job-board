@@ -1,9 +1,10 @@
 import mongoose, { Schema } from "mongoose";
-import { CmsLocale, LocaleCmsContent } from "@/types/cms.types";
+import { CmsLocale, LocaleCmsContent, SiteVisibilitySettings } from "@/types/cms.types";
 
 export interface ISiteContentDocument extends mongoose.Document {
   slug: string;
   content: Record<CmsLocale, LocaleCmsContent>;
+  visibility?: SiteVisibilitySettings;
   updatedBy?: string;
   createdAt: Date;
   updatedAt: Date;
@@ -27,6 +28,7 @@ const siteContentSchema = new Schema<ISiteContentDocument>(
       ar: { type: localeContentSchema, required: true },
     },
     updatedBy: { type: String },
+    visibility: { type: Schema.Types.Mixed },
   },
   { timestamps: true }
 );

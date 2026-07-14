@@ -40,6 +40,8 @@ export const API_ERROR_CODES = {
   FILE_REQUIRED: "fileRequired",
   FILE_SIZE_EXCEEDS: "fileSizeExceeds",
   FILE_TYPE_NOT_SUPPORTED: "fileTypeNotSupported",
+  TOO_MANY_REQUESTS: "tooManyRequests",
+  INVALID_CSRF_TOKEN: "invalidCsrfToken",
 } as const;
 
 export type ApiErrorCode =

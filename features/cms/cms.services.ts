@@ -4,16 +4,19 @@ import { HttpError } from "@/lib/httpError";
 import { authService } from "../auth/auth.services";
 import { cmsRepository } from "./cms.repository";
 import { CMS_DEFAULTS, CMS_SLUG, isCmsLocale, mergeLocaleContent } from "./cms.defaults";
+import { mergeSiteVisibility } from "./cms.visibility";
 import {
   localeCmsSchema,
   updateCmsSchema,
   updateSubmissionStatusSchema,
+  updateVisibilitySchema,
 } from "./cms.validation";
 import {
   CmsLocale,
   CmsSection,
   ContactSubmissionStatus,
   LocaleCmsContent,
+  SiteVisibilitySettings,
 } from "@/types/cms.types";
 import { z } from "zod";
 
@@ -28,10 +31,25 @@ export const cmsService = {
   ensureSiteContent: async () => {
     const existing = await cmsRepository.findSiteContent();
     if (existing?.content?.en && existing?.content?.ar) {
+      if (!existing.visibility) {
+        return await cmsRepository.updateVisibility(
+          mergeSiteVisibility(undefined),
+          existing.updatedBy
+        );
+      }
       return existing;
     }
 
-    return await cmsRepository.upsertSiteContent(CMS_DEFAULTS);
+    return await cmsRepository.upsertSiteContent(
+      CMS_DEFAULTS,
+      undefined,
+      mergeSiteVisibility(undefined)
+    );
+  },
+
+  getPublicVisibility: async (): Promise<SiteVisibilitySettings> => {
+    const doc = await cmsService.ensureSiteContent();
+    return mergeSiteVisibility(doc.visibility as SiteVisibilitySettings | undefined);
   },
 
   getPublicContent: async (locale: string): Promise<LocaleCmsContent> => {
@@ -52,8 +70,30 @@ export const cmsService = {
         en: mergeLocaleContent(content.en, "en"),
         ar: mergeLocaleContent(content.ar, "ar"),
       },
+      visibility: mergeSiteVisibility(doc.visibility as SiteVisibilitySettings | undefined),
       updatedAt: doc.updatedAt,
       updatedBy: doc.updatedBy,
+    };
+  },
+
+  updateVisibility: async (visibility: SiteVisibilitySettings) => {
+    const admin = await authService.getAdminUser();
+    const result = updateVisibilitySchema.safeParse({ visibility });
+    if (!result.success) {
+      throw new HttpError(400, {
+        errors: formatZodErrorToRecord(result.error),
+      });
+    }
+
+    await cmsService.ensureSiteContent();
+    const saved = await cmsRepository.updateVisibility(
+      result.data.visibility,
+      admin.userId
+    );
+
+    return {
+      message: "Visibility updated successfully",
+      visibility: mergeSiteVisibility(saved?.visibility as SiteVisibilitySettings | undefined),
     };
   },
 

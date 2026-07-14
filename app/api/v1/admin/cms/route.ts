@@ -16,3 +16,10 @@ export const PUT = asyncWrapper(async (request: NextRequest) => {
   const result = await cmsService.updateSection(locale, section, data);
   return NextResponse.json(result);
 });
+
+export const PATCH = asyncWrapper(async (request: NextRequest) => {
+  await connectDB();
+  const body = await request.json();
+  const result = await cmsService.updateVisibility(body.visibility);
+  return NextResponse.json(result);
+});

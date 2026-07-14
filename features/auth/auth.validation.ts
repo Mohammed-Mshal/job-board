@@ -15,7 +15,7 @@ const registerSchema = z.object({
   email: z.string().email({ message: "invalidEmail" }),
   password: z.string().min(8, { message: "passwordMin8" }),
   confirmPassword: z.string().min(8, { message: "passwordMin8" }),
-  role: z.enum(Object.values(USER_ROLES) as [UserRoleType, ...UserRoleType[]]),
+  role: z.enum([USER_ROLES.USER, USER_ROLES.COMPANY]),
   location: z.string().min(3, { message: "locationMin3" }),
   description: z.string().min(10, { message: "descriptionMin10" }),
   teamSize: z.object({
@@ -34,6 +34,6 @@ const registerSchema = z.object({
 
 const loginValidation = (data: z.infer<typeof loginSchema>) =>
   loginSchema.safeParse(data);
-const registerValidation = (data: z.infer<typeof registerSchema>) =>
+const registerValidation = (data: unknown) =>
   registerSchema.safeParse(data);
 export { loginSchema, registerSchema , loginValidation, registerValidation };

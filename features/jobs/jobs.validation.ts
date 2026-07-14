@@ -60,7 +60,7 @@ const salarySchema = z
     path: ["max"],
   });
 
-export const createJobSchema = z.object({
+const jobFieldsSchema = z.object({
   title: z.string().min(3, { message: "titleMin3" }),
   description: z.string().min(10, { message: "descriptionMin10" }),
   location: z.string().min(1, { message: "locationRequired" }),
@@ -79,12 +79,20 @@ export const createJobSchema = z.object({
   })).min(1, { message: "atLeastOneFaq" }),
   relocation: z.boolean().default(false),
   visaSponsored: z.boolean().default(false),
-}).refine((data) => data.benefits.length >= 1 && data.hiringProcess.length >= 1 && data.FAQ.length >= 1, {
-  path: ["benefits", "hiringProcess", "FAQ"],
-  message: "benefitsHiringFaqRequired",
 });
+
+export const createJobSchema = jobFieldsSchema.refine(
+  (data) => data.benefits.length >= 1 && data.hiringProcess.length >= 1 && data.FAQ.length >= 1,
+  {
+    path: ["benefits", "hiringProcess", "FAQ"],
+    message: "benefitsHiringFaqRequired",
+  }
+);
 export type CreateJobSchema = z.infer<typeof createJobSchema>;
 export const createJobValidation = (data: CreateJobSchema) =>
   createJobSchema.safeParse(data);
 
+export const updateJobSchema = jobFieldsSchema.partial();
+export const updateJobValidation = (data: unknown) =>
+  updateJobSchema.safeParse(data);
 

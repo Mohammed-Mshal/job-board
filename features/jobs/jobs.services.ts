@@ -2,7 +2,7 @@ import { apiError, API_ERROR_CODES } from "@/lib/apiError";
 import { formatZodErrorToRecord } from "@/lib/formatError";
 import { HttpError } from "@/lib/httpError";
 import { jobsRepository } from "./jobs.repository";
-import { buildJobsFilter, CreateJobSchema, createJobValidation, getJobsQueryValidation } from "./jobs.validation";
+import { buildJobsFilter, CreateJobSchema, createJobValidation, getJobsQueryValidation, updateJobValidation } from "./jobs.validation";
 import { authService } from "../auth/auth.services";
 import type { QueryFilter } from "mongoose";
 import { IJobDocument } from "@/models/job.model";
@@ -43,7 +43,7 @@ export const jobsService = {
     return await jobsRepository.createJob(company, result.data);
   },
 
-  updateJob: async (id: string, newData: Partial<CreateJobSchema>) => {
+  updateJob: async (id: string, newData: unknown) => {
     const company = await authService.getCompanyUser();
     const jobData = await jobsRepository.getJobById(id);
     if (!jobData) {
@@ -52,7 +52,13 @@ export const jobsService = {
     if (company._id.toString() !== jobData.company._id.toString()) {
       throw apiError(401, API_ERROR_CODES.UNAUTHORIZED);
     }
-    return await jobsRepository.updateJob(id, newData as Partial<IJobDocument>);
+
+    const result = updateJobValidation(newData);
+    if (!result.success) {
+      throw new HttpError(400, { errors: formatZodErrorToRecord(result.error) });
+    }
+
+    return await jobsRepository.updateJob(id, result.data as Partial<IJobDocument>);
   },
 
   deleteJob: async (id: string) => {

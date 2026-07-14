@@ -5,7 +5,8 @@ export const ENDPOINTS = {
     LOGIN: `${API_VERSION}/auth/login`,
     REGISTER: `${API_VERSION}/auth/signup`,
     LOGOUT: `${API_VERSION}/auth/logout`,
-    ME: `${API_VERSION}/auth/me`,
+    REFRESH: `${API_VERSION}/auth/refresh`,
+    CSRF: `${API_VERSION}/csrf`,
   },
   PROFILE: {
     GET: `${API_VERSION}/profile`,
@@ -17,7 +18,7 @@ export const ENDPOINTS = {
     MESSAGE: (id: string) => `${API_VERSION}/profile/messages/${id}`,
   },
   COMPANY: {
-    GET: `${API_VERSION}/auth/me`,
+    GET: `${API_VERSION}/profile`,
     UPDATE: `${API_VERSION}/profile/edit-profile`,
     UPLOAD_LOGO: `${API_VERSION}/profile/update-image`,
     LIST: `${API_VERSION}/companies`,

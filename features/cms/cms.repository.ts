@@ -1,7 +1,8 @@
 import { SiteContent } from "@/models/site-content.model";
 import { ContactSubmission } from "@/models/contact-submission.model";
 import { CMS_DEFAULTS, CMS_SLUG } from "./cms.defaults";
-import { CmsLocale, ContactSubmissionStatus, LocaleCmsContent } from "@/types/cms.types";
+import { mergeSiteVisibility } from "./cms.visibility";
+import { CmsLocale, ContactSubmissionStatus, LocaleCmsContent, SiteVisibilitySettings } from "@/types/cms.types";
 
 export const cmsRepository = {
   findSiteContent: async () => {
@@ -10,12 +11,31 @@ export const cmsRepository = {
 
   upsertSiteContent: async (
     content: Record<CmsLocale, LocaleCmsContent>,
-    updatedBy?: string
+    updatedBy?: string,
+    visibility?: SiteVisibilitySettings
   ) => {
+    const update: Record<string, unknown> = {
+      slug: CMS_SLUG,
+      content,
+      updatedBy,
+    };
+
+    if (visibility) {
+      update.visibility = visibility;
+    }
+
     return await SiteContent.findOneAndUpdate(
       { slug: CMS_SLUG },
-      { slug: CMS_SLUG, content, updatedBy },
-      { upsert: true, new: true, setDefaultsOnInsert: true }
+      update,
+      { upsert: true, returnDocument: "after", setDefaultsOnInsert: true }
+    ).lean();
+  },
+
+  updateVisibility: async (visibility: SiteVisibilitySettings, updatedBy?: string) => {
+    return await SiteContent.findOneAndUpdate(
+      { slug: CMS_SLUG },
+      { slug: CMS_SLUG, visibility, updatedBy },
+      { upsert: true, returnDocument: "after", setDefaultsOnInsert: true }
     ).lean();
   },
 
@@ -37,7 +57,7 @@ export const cmsRepository = {
     return await ContactSubmission.findByIdAndUpdate(
       id,
       { status },
-      { new: true }
+      { returnDocument: "after" }
     ).lean();
   },
 

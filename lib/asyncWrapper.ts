@@ -4,10 +4,16 @@ import { API_ERROR_CODES } from "./apiErrorCodes";
 import { getRequestLocale } from "./getRequestLocale";
 import { HttpError } from "./httpError";
 import { translateApiErrorBody } from "./translateApiError";
+import { validateCsrf } from "./csrf";
 
 export const asyncWrapper = (fn: (...args: any[]) => Promise<any>) => {
   return async (...args: any[]) => {
     try {
+      const request = args[0] as NextRequest | undefined;
+      if (request) {
+        await validateCsrf(request);
+      }
+
       return await fn(...args);
     } catch (error) {
       console.error(error);

@@ -10,7 +10,7 @@ export default function CompanyCard({ company }: { company: ICompany }) {
   const t = useTranslations("CompaniesPage")
 
   return (
-    <article className="relative flex flex-col gap-4 rounded-3xl border border-[rgba(73,68,84,0.1)] bg-[#18181B] p-8">
+    <article className="relative flex flex-col gap-4 rounded-3xl border border-[rgba(73,68,84,0.1)] bg-[#18181B] p-8 hover:bg-[#211E27] transition-all duration-300">
       <Link
         href={`/companies/${company.userId}`}
         className="absolute inset-0 z-10 rounded-3xl"
@@ -18,14 +18,14 @@ export default function CompanyCard({ company }: { company: ICompany }) {
       />
 
       <div className="flex items-start justify-between gap-4">
-        <div className="h-16 w-16 overflow-hidden rounded-2xl border border-[#494454] bg-[#211E27] p-2">
+        <div className="h-16 w-16 flex overflow-hidden rounded-full bg-[#211E27]">
           {company.profileImage?.url ? (
             <Image
               src={company.profileImage.url}
               alt={company.profileImage.altText || company.name}
               width={64}
               height={64}
-              className="h-full w-full object-contain"
+              className="h-full w-full object-cover"
             />
           ) : (
             <div className="flex h-full w-full items-center justify-center">

@@ -38,6 +38,6 @@ export const authService = {
   },
 
   me: async <T>(): Promise<T> => {
-    return await api.get<T>(ENDPOINTS.AUTH.ME);
+    return await api.get<T>(ENDPOINTS.PROFILE.GET);
   },
 };

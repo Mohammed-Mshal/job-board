@@ -1,4 +1,9 @@
 import { z } from "zod";
+import {
+  HOME_SECTION_KEYS,
+  NAVIGATION_KEYS,
+  PAGE_VISIBILITY_KEYS,
+} from "./cms.visibility";
 
 const generalSchema = z.object({
   siteName: z.string().min(1),
@@ -141,4 +146,22 @@ export const updateCmsSchema = z.object({
 
 export const updateSubmissionStatusSchema = z.object({
   status: z.enum(["new", "read", "archived"]),
+});
+
+const booleanRecordSchema = <T extends readonly string[]>(keys: T) =>
+  z.object(
+    Object.fromEntries(keys.map((key) => [key, z.boolean()])) as Record<
+      T[number],
+      z.ZodBoolean
+    >
+  );
+
+export const siteVisibilitySchema = z.object({
+  homeSections: booleanRecordSchema(HOME_SECTION_KEYS),
+  pages: booleanRecordSchema(PAGE_VISIBILITY_KEYS),
+  navigation: booleanRecordSchema(NAVIGATION_KEYS),
+});
+
+export const updateVisibilitySchema = z.object({
+  visibility: siteVisibilitySchema,
 });

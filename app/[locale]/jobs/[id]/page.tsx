@@ -11,12 +11,44 @@ import { jobsService } from "@/features/jobs/jobs.services"
 import connectDB from "@/lib/db"
 import { HttpError } from "@/lib/httpError"
 import { serializeDocument } from "@/lib/serializeDocument"
+import JobPostingJsonLd from "@/components/seo/JobPostingJsonLd"
+import { buildPageMetadata } from "@/lib/seo"
 import { IJob } from "@/types/job.types"
+import type { Metadata } from "next"
 import { getLocale, getTranslations } from "next-intl/server"
 import { notFound } from "next/navigation"
 
 interface JobPageProps {
-  params: Promise<{ id: string }>
+  params: Promise<{ id: string; locale: string }>
+}
+
+export async function generateMetadata({
+  params,
+}: JobPageProps): Promise<Metadata> {
+  const { id, locale } = await params
+  const t = await getTranslations("SEO")
+
+  await connectDB()
+
+  try {
+    const result = await jobsService.getJobById(id)
+    const job = serializeDocument(result) as IJob
+
+    return buildPageMetadata({
+      locale,
+      path: `/jobs/${id}`,
+      title: t("job-title", {
+        title: job.title,
+        company: job.company?.name ?? "Company",
+      }),
+      description: t("job-description", {
+        title: job.title,
+        location: job.location,
+      }),
+    })
+  } catch {
+    return {}
+  }
 }
 
 export default async function JobPage({ params }: JobPageProps) {
@@ -57,7 +89,9 @@ export default async function JobPage({ params }: JobPageProps) {
     : "--"
 
   return (
-    <div className="container xl:max-w-7xl mx-auto px-4 py-8">
+    <>
+      <JobPostingJsonLd job={job} locale={locale} />
+      <div className="container xl:max-w-7xl mx-auto px-4 py-8">
       <div className="grid grid-cols-12 gap-6">
         <main className="xl:col-span-9 col-span-12 flex flex-col gap-8">
           <JobHeader job={job} salaryLabel={salaryLabel} />
@@ -114,5 +148,6 @@ export default async function JobPage({ params }: JobPageProps) {
         />
       </div>
     </div>
+    </>
   )
 }

@@ -14,10 +14,17 @@ import { IMediaDocument } from "@/models/media.model";
 import { IMedia } from "@/types/media.types";
 import { verifySession } from "@/lib/auth";
 import { authRepository } from "../auth/auth.repository";
+import { formatZodErrorToRecord } from "@/lib/formatError";
+import { applyForJobValidation } from "./applications.validation";
 
 export const applicationsServices= { 
     applyForJob: async (jobId: string,  coverLetter: string, resume: File) => {
-        const job = await Job.findOne({ jobId });
+        const parsed = applyForJobValidation({ jobId, coverLetter });
+        if (!parsed.success) {
+            throw new HttpError(400, { errors: formatZodErrorToRecord(parsed.error) });
+        }
+
+        const job = await Job.findOne({ jobId: parsed.data.jobId });
         if (!job) {
             throw apiError(404, API_ERROR_CODES.JOB_NOT_FOUND);
         }
@@ -36,7 +43,7 @@ export const applicationsServices= {
             throw apiError(400, API_ERROR_CODES.ALREADY_APPLIED);
         }
         const resumeMedia = await mediaService.createMedia(resume, 'resume-files', 1024 * 1024 * 5, ["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"]);
-        const application = await applicationsRepository.createApplication(job._id.toString(), user._id.toString(), coverLetter, resumeMedia);
+        const application = await applicationsRepository.createApplication(job._id.toString(), user._id.toString(), parsed.data.coverLetter, resumeMedia);
         return {
             message: "Application submitted successfully",
             application,

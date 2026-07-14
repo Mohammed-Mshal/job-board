@@ -6,7 +6,9 @@ import FeaturePathSwiper from './FeaturePathSwiper';
 import { SlideUp } from '@/components/motion';
 import { IJob, JobStatus } from '@/types/job.types';
 import { HomeSectionTitleCms } from '@/types/cms.types';
-import { jobService } from '@/src/services';
+import { jobsService } from '@/features/jobs/jobs.services';
+import connectDB from '@/lib/db';
+import { serializeDocument } from '@/lib/serializeDocument';
 
 export default async function FeaturePath({
   sectionContent,
@@ -17,13 +19,15 @@ export default async function FeaturePath({
 
   let jobs: IJob[] = [];
   try {
-    const response = await jobService.getJobs({
+    await connectDB();
+    const searchParams = new URLSearchParams({
       status: JobStatus.OPEN,
-      limit: 9,
+      limit: '9',
       sortBy: 'createdAt',
       sortOrder: 'desc',
     });
-    jobs = response.jobs;
+    const response = await jobsService.getJobs(searchParams);
+    jobs = response.jobs.map((job) => serializeDocument(job)) as IJob[];
   } catch {
     jobs = [];
   }

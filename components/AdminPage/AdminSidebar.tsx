@@ -3,6 +3,7 @@
 import { CmsLocale } from "@/types/cms.types"
 import { cn } from "@/lib/utils"
 import {
+  Eye,
   FileText,
   Globe,
   Home,
@@ -14,7 +15,7 @@ import {
 } from "lucide-react"
 import { useTranslations } from "next-intl"
 
-export type AdminTab = "overview" | "general" | "home" | "about" | "contact" | "submissions" | "users" | "testimonials"
+export type AdminTab = "overview" | "general" | "home" | "about" | "contact" | "visibility" | "submissions" | "users" | "testimonials"
 
 interface AdminSidebarProps {
   activeTab: AdminTab
@@ -37,6 +38,7 @@ export default function AdminSidebar({
     { id: "home", label: t("home"), icon: <Home className="size-4" /> },
     { id: "about", label: t("about"), icon: <Info className="size-4" /> },
     { id: "contact", label: t("contact"), icon: <FileText className="size-4" /> },
+    { id: "visibility", label: t("visibility"), icon: <Eye className="size-4" /> },
     { id: "users", label: t("users"), icon: <Users className="size-4" /> },
     { id: "testimonials", label: t("testimonials"), icon: <MessageSquare className="size-4" /> },
     { id: "submissions", label: t("submissions"), icon: <Inbox className="size-4" /> },

@@ -94,7 +94,7 @@ export default function SaveJobButton({
         aria-label={saved ? t("saved") : t("save")}
         title={saved ? t("saved") : t("save")}
         className={cn(
-          "relative z-20 flex size-12 items-center justify-center rounded-xl text-sm font-bold transition-all duration-300 cursor-pointer",
+          "relative z-20 flex size-12 p-3 items-center justify-center rounded-full text-sm font-bold transition-all duration-300 cursor-pointer",
           saved
             ? "bg-[#27272A] text-[#D0BCFF]"
             : "bg-[#27272A] text-[#71717A] hover:bg-[#3F3F46] hover:text-[#FFFFFF]",

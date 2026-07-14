@@ -1,30 +1,45 @@
-import React from 'react'
-import SignupForm from '@/components/Forms/SignupForm';
-import { Link } from '@/i18n/navigation';
-import './signup.css';
-export default function SignupPage() {
-  return (
-    <div className="pt-12 login-page z-10 ">
-        <div className="container xl:max-w-7xl mx-auto px-4 py-2 flex gap-4 flex-col">
-            <div className="header-section flex items-center flex-col text-center">
-                <h2 className="xl:text-3xl lg:text-2xl text-xl font-bold text-[#D0BCFF]">
-                    Create your account
-                </h2>
-                <div className="desc lg:text-lg text-base text-[#A1A1AA]">
-                    Join the high-performance network of top companies and candidates.
-                </div>
-            </div>
-            <div className="max-w-4xl mx-auto w-full p-8">
-                <SignupForm />
-                <hr className="my-8 border-t border-[#27272A]" />
-                <div className="flex justify-center gap-1">
-                    <p className="text-[#A1A1AA] text-sm">Already have an account?</p>
-                    <Link href="/login" className="text-[#D0BCFF] text-sm font-bold">
-                        Log in
-                    </Link>
-                </div>
-            </div>
-        </div>
-    </div>
-  )
-}
+import SignupForm from '@/components/Forms/SignupForm';
+import { Link } from '@/i18n/navigation';
+import { noIndexMetadata } from '@/lib/seo';
+import { getTranslations } from 'next-intl/server';
+import type { Metadata } from 'next';
+import './signup.css';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations('Signup');
+  return noIndexMetadata(locale, '/signup', t('title'));
+}
+
+export default async function SignupPage() {
+  const t = await getTranslations('Signup');
+
+  return (
+    <div className="login-page relative z-10 pt-12">
+      <div className="page-container flex flex-col gap-8 py-2">
+        <div className="flex flex-col items-center gap-4 text-center">
+          <h1 className="text-xl font-bold text-[var(--accent)] sm:text-2xl lg:text-3xl">
+            {t('title')}
+          </h1>
+          <p className="auth-description max-w-2xl">
+            {t('description')}
+          </p>
+        </div>
+        <div className="mx-auto w-full max-w-4xl p-6 lg:p-8">
+          <SignupForm />
+          <hr className="form-divider" />
+          <div className="form-footer">
+            <p className="text-body-sm">{t('already-have-account')}</p>
+            <Link href="/login" className="text-link">
+              {t('login')}
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}

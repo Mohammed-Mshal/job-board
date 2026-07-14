@@ -1,9 +1,9 @@
 "use client"
 
 import { contactService } from "@/services/contact.service"
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
 import { Loader2 } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { useForm } from "react-hook-form"
@@ -46,25 +46,22 @@ export default function ContactForm() {
   }
 
   return (
-    <section className="rounded-[20px] border border-[#27272A] bg-[#18181B] p-8">
-      <h2 className="mb-6 text-xl font-semibold text-[#fafafa]">{t("title")}</h2>
+    <section className="surface-card">
+      <h2 className="heading-section">{t("title")}</h2>
 
       <form
         onSubmit={(event) => {
           event.preventDefault()
           void handleSubmit(onSubmit)(event)
         }}
-        className="flex flex-col gap-5"
+        className="form-stack"
       >
-        <div className="grid gap-5 md:grid-cols-2">
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="name" className="text-[#A1A1AA]">
-              {t("name")}
-            </Label>
+        <div className="form-grid">
+          <div className="form-field">
+            <Label htmlFor="name">{t("name")}</Label>
             <Input
               id="name"
               placeholder={t("name-placeholder")}
-              className="border-[#27272A] bg-[#111113] text-[#fafafa]"
               disabled={isSubmitting}
               {...register("name", {
                 required: t("name-required"),
@@ -72,19 +69,16 @@ export default function ContactForm() {
               })}
             />
             {errors.name && (
-              <p className="text-sm text-red-500">{errors.name.message}</p>
+              <p className="form-error">{errors.name.message}</p>
             )}
           </div>
 
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="email" className="text-[#A1A1AA]">
-              {t("email")}
-            </Label>
+          <div className="form-field">
+            <Label htmlFor="email">{t("email")}</Label>
             <Input
               id="email"
               type="email"
               placeholder={t("email-placeholder")}
-              className="border-[#27272A] bg-[#111113] text-[#fafafa]"
               disabled={isSubmitting}
               {...register("email", {
                 required: t("email-required"),
@@ -95,19 +89,16 @@ export default function ContactForm() {
               })}
             />
             {errors.email && (
-              <p className="text-sm text-red-500">{errors.email.message}</p>
+              <p className="form-error">{errors.email.message}</p>
             )}
           </div>
         </div>
 
-        <div className="flex flex-col gap-2">
-          <Label htmlFor="subject" className="text-[#A1A1AA]">
-            {t("subject")}
-          </Label>
+        <div className="form-field">
+          <Label htmlFor="subject">{t("subject")}</Label>
           <Input
             id="subject"
             placeholder={t("subject-placeholder")}
-            className="border-[#27272A] bg-[#111113] text-[#fafafa]"
             disabled={isSubmitting}
             {...register("subject", {
               required: t("subject-required"),
@@ -115,20 +106,17 @@ export default function ContactForm() {
             })}
           />
           {errors.subject && (
-            <p className="text-sm text-red-500">{errors.subject.message}</p>
+            <p className="form-error">{errors.subject.message}</p>
           )}
         </div>
 
-        <div className="flex flex-col gap-2">
-          <Label htmlFor="message" className="text-[#A1A1AA]">
-            {t("message")}
-          </Label>
-          <textarea
+        <div className="form-field">
+          <Label htmlFor="message">{t("message")}</Label>
+          <Textarea
             id="message"
             rows={6}
             placeholder={t("message-placeholder")}
             disabled={isSubmitting}
-            className="w-full resize-none rounded-lg border border-[#27272A] bg-[#111113] px-4 py-3 text-sm text-[#fafafa] outline-none focus:border-[#D0BCFF] disabled:opacity-60"
             {...register("message", {
               required: t("message-required"),
               minLength: { value: 10, message: t("message-min") },
@@ -136,14 +124,14 @@ export default function ContactForm() {
             })}
           />
           {errors.message && (
-            <p className="text-sm text-red-500">{errors.message.message}</p>
+            <p className="form-error">{errors.message.message}</p>
           )}
         </div>
 
-        <Button
+        <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full rounded-lg btn-primary md:w-auto md:self-start"
+          className="base-btn btn-primary w-full md:w-auto md:self-start"
         >
           {isSubmitting ? (
             <span className="flex items-center gap-2">
@@ -153,7 +141,7 @@ export default function ContactForm() {
           ) : (
             t("submit")
           )}
-        </Button>
+        </button>
       </form>
     </section>
   )

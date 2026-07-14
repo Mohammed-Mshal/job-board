@@ -12,7 +12,7 @@ import {
 import { SlideUp, StaggerContainer, StaggerItem } from '@/components/motion'
 import FooterLink from './FooterLink'
 import FooterSocialLinks from './FooterSocialLinks'
-import { footerColumns } from './footer.config'
+import { footerColumns, FooterColumnConfig } from './footer.config'
 import { socialIconEntries } from './footer.social'
 
 interface FooterProps {
@@ -20,6 +20,7 @@ interface FooterProps {
   siteDescription?: string
   footerCopyright?: string
   footerTagline?: string
+  columns?: FooterColumnConfig[]
 }
 
 export default function Footer({
@@ -27,6 +28,7 @@ export default function Footer({
   siteDescription,
   footerCopyright,
   footerTagline,
+  columns = footerColumns,
 }: FooterProps) {
   const t = useTranslations('Footer')
   const year = new Date().getFullYear()
@@ -80,7 +82,7 @@ export default function Footer({
           className="hidden border-t border-[#27272A] py-12 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10 lg:grid-cols-4 lg:gap-12"
           viewport={{ amount: 0.1 }}
         >
-          {footerColumns.map((column) => (
+          {columns.map((column) => (
             <StaggerItem key={column.id}>
               <nav aria-label={t(column.titleKey)}>
                 <h3 className="mb-5 text-sm font-semibold tracking-wide text-[#FAFAFA]">
@@ -105,7 +107,7 @@ export default function Footer({
         {/* Mobile accordion */}
         <div className="border-t border-[#27272A] py-8 md:hidden">
           <Accordion type="single" collapsible className="border-[#27272A] bg-[#111113]">
-            {footerColumns.map((column) => (
+            {columns.map((column) => (
               <AccordionItem key={column.id} value={column.id}>
                 <AccordionTrigger className="text-[#FAFAFA] hover:no-underline">
                   {t(column.titleKey)}

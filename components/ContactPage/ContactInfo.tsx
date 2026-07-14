@@ -27,27 +27,24 @@ export default async function ContactInfo({ content }: { content?: ContactInfoCm
 
   return (
     <aside className="flex flex-col gap-6">
-      <div className="rounded-[20px] border border-[#27272A] bg-[#18181B] p-8">
-        <h2 className="mb-6 text-xl font-semibold text-[#fafafa]">
+      <div className="surface-card">
+        <h2 className="heading-section">
           {content?.title ?? t("title")}
         </h2>
         <ul className="flex flex-col gap-6">
           {items.map((item) => (
             <li key={item.title} className="flex gap-4">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[rgba(208,188,255,0.1)]">
-                <item.icon className="text-[#D0BCFF]" size={20} />
+              <div className="icon-badge">
+                <item.icon size={20} />
               </div>
-              <div className="flex flex-col gap-1">
-                <span className="text-sm text-[#71717A]">{item.title}</span>
+              <div className="form-field gap-1">
+                <span className="text-caption">{item.title}</span>
                 {item.href ? (
-                  <a
-                    href={item.href}
-                    className="text-[#fafafa] transition-colors hover:text-[#D0BCFF]"
-                  >
+                  <a href={item.href} className="text-sm text-[var(--foreground)] transition-colors hover:text-[var(--accent)]">
                     {item.value}
                   </a>
                 ) : (
-                  <span className="text-[#fafafa]">{item.value}</span>
+                  <span className="text-sm text-[var(--foreground)]">{item.value}</span>
                 )}
               </div>
             </li>
@@ -55,11 +52,11 @@ export default async function ContactInfo({ content }: { content?: ContactInfoCm
         </ul>
       </div>
 
-      <div className="rounded-[20px] border border-[#27272A] bg-[#18181B] p-8">
-        <h3 className="mb-3 text-lg font-semibold text-[#fafafa]">
+      <div className="surface-card">
+        <h3 className="heading-subsection">
           {content?.supportTitle ?? t("support-title")}
         </h3>
-        <p className="text-sm leading-relaxed text-[#A1A1AA]">
+        <p className="text-body-sm">
           {content?.supportDescription ?? t("support-description")}
         </p>
       </div>

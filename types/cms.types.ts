@@ -142,11 +142,44 @@ export interface LocaleCmsContent {
 export interface SiteCmsDocument {
   slug: string;
   content: Record<CmsLocale, LocaleCmsContent>;
+  visibility: SiteVisibilitySettings;
   updatedAt: string;
   updatedBy?: string;
 }
 
 export type CmsSection = keyof LocaleCmsContent;
+
+export interface SiteVisibilitySettings {
+  homeSections: Record<
+    | "banner"
+    | "videoSection"
+    | "partnerTicker"
+    | "ourValue"
+    | "howItWorks"
+    | "whyChooseUs"
+    | "featurePath"
+    | "testimonials",
+    boolean
+  >;
+  pages: Record<
+    | "jobs"
+    | "companies"
+    | "about"
+    | "contact"
+    | "privacy"
+    | "terms"
+    | "cookies"
+    | "security"
+    | "help"
+    | "docs"
+    | "pricing"
+    | "candidates"
+    | "careerResources"
+    | "applications",
+    boolean
+  >;
+  navigation: Record<"home" | "jobs" | "companies" | "about" | "contact", boolean>;
+}
 
 export type ContactSubmissionStatus = "new" | "read" | "archived";
 

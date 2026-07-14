@@ -4,8 +4,12 @@ import axios, {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from "axios";
+import { CSRF_HEADER_NAME } from "@/lib/csrf.constants";
+import { ensureCsrfToken, getCsrfTokenFromCookie } from "@/lib/csrf.client";
+import { ENDPOINTS } from "@/constants/endpoints";
 
 type UnauthorizedHandler = () => void;
+type RetryableConfig = InternalAxiosRequestConfig & { _retry?: boolean };
 
 let unauthorizedHandler: UnauthorizedHandler | null = null;
 
@@ -49,8 +53,16 @@ const axiosInstance: AxiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use(
-  (config: InternalAxiosRequestConfig) => {
+  async (config: InternalAxiosRequestConfig) => {
     config.headers.set("x-locale", getClientLocale());
+
+    const method = (config.method ?? "get").toLowerCase();
+    if (["post", "put", "patch", "delete"].includes(method)) {
+      const token = getCsrfTokenFromCookie() ?? (await ensureCsrfToken());
+      if (token) {
+        config.headers.set(CSRF_HEADER_NAME, token);
+      }
+    }
 
     if (config.data instanceof FormData) {
       config.headers.set("Content-Type", undefined) 
@@ -64,11 +76,30 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => response,
-  (error: unknown) => {
+  async (error: unknown) => {
     // Axios errors can take multiple shapes, so normalize them
     let status: number | undefined;
+    let config: RetryableConfig | undefined;
+
     if (axios.isAxiosError(error)) {
       status = error.response?.status;
+      config = error.config as RetryableConfig | undefined;
+    }
+
+    if (
+      status === 401 &&
+      config &&
+      !config._retry &&
+      !config.url?.includes(ENDPOINTS.AUTH.REFRESH)
+    ) {
+      config._retry = true;
+
+      try {
+        await axiosInstance.post(ENDPOINTS.AUTH.REFRESH);
+        return axiosInstance.request(config);
+      } catch {
+        // fall through to unauthorized handler
+      }
     }
 
     // Handle 401 Unauthorized globally

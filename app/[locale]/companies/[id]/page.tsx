@@ -7,12 +7,38 @@ import { companiesService } from "@/features/companies/companies.services"
 import connectDB from "@/lib/db"
 import { HttpError } from "@/lib/httpError"
 import { serializeDocument } from "@/lib/serializeDocument"
+import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd"
+import { buildPageMetadata } from "@/lib/seo"
 import { CompanyDetailResponse } from "@/types/company.types"
+import type { Metadata } from "next"
 import { getLocale, getTranslations } from "next-intl/server"
 import { notFound } from "next/navigation"
 
 interface CompanyPageProps {
-  params: Promise<{ id: string }>
+  params: Promise<{ id: string; locale: string }>
+}
+
+export async function generateMetadata({
+  params,
+}: CompanyPageProps): Promise<Metadata> {
+  const { id, locale } = await params
+  const t = await getTranslations("SEO")
+
+  await connectDB()
+
+  try {
+    const result = await companiesService.getCompanyById(id)
+    const data = serializeDocument(result) as CompanyDetailResponse
+
+    return buildPageMetadata({
+      locale,
+      path: `/companies/${id}`,
+      title: t("company-title", { name: data.company.name }),
+      description: t("company-description", { name: data.company.name }),
+    })
+  } catch {
+    return {}
+  }
 }
 
 export default async function CompanyPage({ params }: CompanyPageProps) {
@@ -42,7 +68,9 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
     : "--"
 
   return (
-    <div className="container mx-auto flex flex-col gap-8 px-4 py-8 xl:max-w-7xl">
+    <>
+      <OrganizationJsonLd company={company} locale={locale} />
+      <div className="container mx-auto flex flex-col gap-8 px-4 py-8 xl:max-w-7xl">
       <CompanyHeader
         company={company}
         memberSince={memberSince}
@@ -62,5 +90,6 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
         }}
       />
     </div>
+    </>
   )
 }

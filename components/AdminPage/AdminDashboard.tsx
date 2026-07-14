@@ -1,7 +1,7 @@
 "use client"
 
 import { adminService } from "@/services/admin.service"
-import { CmsLocale, LocaleCmsContent } from "@/types/cms.types"
+import { CmsLocale, LocaleCmsContent, SiteVisibilitySettings } from "@/types/cms.types"
 import { Loader2 } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { useEffect, useState } from "react"
@@ -14,6 +14,7 @@ import AdminSubmissions from "./AdminSubmissions"
 import AdminUsers from "./AdminUsers"
 import AdminTestimonials from "./AdminTestimonials"
 import AdminUserStatsChart from "./AdminUserStatsChart"
+import AdminVisibilityForm from "./AdminVisibilityForm"
 import { getApiErrorMessage } from "../ProfilePage/profile.utils"
 import { toast } from "react-hot-toast"
 import { AdminUserStats } from "@/types/api.types"
@@ -23,6 +24,7 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState<AdminTab>("overview")
   const [locale, setLocale] = useState<CmsLocale>("en")
   const [content, setContent] = useState<Record<CmsLocale, LocaleCmsContent> | null>(null)
+  const [visibility, setVisibility] = useState<SiteVisibilitySettings | null>(null)
   const [userStats, setUserStats] = useState<AdminUserStats | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
@@ -37,6 +39,7 @@ export default function AdminDashboard() {
         ])
         if (cancelled) return
         setContent(cmsData.content)
+        setVisibility(cmsData.visibility)
         setUserStats(statsData)
       } catch (error) {
         if (cancelled) return
@@ -53,7 +56,7 @@ export default function AdminDashboard() {
     }
   }, [t])
 
-  if (isLoading || !content) {
+  if (isLoading || !content || !visibility) {
     return (
       <div className="flex min-h-[50vh] items-center justify-center">
         <Loader2 className="size-10 animate-spin text-[#D0BCFF]" />
@@ -128,8 +131,23 @@ export default function AdminDashboard() {
                     <p className="font-medium text-[#fafafa]">{t("overview.submissions")}</p>
                     <p className="mt-1 text-xs text-[#71717A]">{t("overview.view-messages")}</p>
                   </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab("visibility")}
+                    className="rounded-xl border border-[#27272A] bg-[#0f0f11] p-4 text-left transition-colors hover:border-[#D0BCFF]"
+                  >
+                    <p className="font-medium text-[#fafafa]">{t("overview.visibility")}</p>
+                    <p className="mt-1 text-xs text-[#71717A]">{t("overview.manage-visibility")}</p>
+                  </button>
                 </div>
               </section>
+            )}
+            {activeTab === "visibility" && (
+              <AdminVisibilityForm
+                key="visibility"
+                initialData={visibility}
+                onSaved={setVisibility}
+              />
             )}
             {activeTab === "general" && (
               <AdminGeneralForm key={`general-${locale}`} locale={locale} initialData={localeContent.general} />
