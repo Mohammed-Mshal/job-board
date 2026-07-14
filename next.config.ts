@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  
+  compress: true
 };
 
 export default withNextIntl(nextConfig);
