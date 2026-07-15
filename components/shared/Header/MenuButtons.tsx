@@ -4,7 +4,7 @@ import MenuButton from '@/components/buttons/MenuButton';
 import { USER_ROLES } from '@/constants/roles';
 import { Link } from '@/i18n/navigation';
 import { useAuthStore } from '@/src/store/auth.store';
-import { LayoutDashboard, UserIcon } from 'lucide-react';
+import { LayoutDashboard, Plus, UserIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import React from 'react'
 
@@ -33,6 +33,14 @@ export default function MenuButtons() {
             <LayoutDashboard className="w-full h-full sm:size-4" />
             <span className="hidden sm:inline-flex">
             {t('admin')}
+            </span>
+          </Link>
+        )}
+        {user.role === USER_ROLES.COMPANY && (
+          <Link href="/post-job" className="base-btn btn-primary h-8 w-8 sm:w-fit sm:h-fit gap-2 p-2 text-sm flex items-center rounded-full sm:rounded-lg sm:py-1" title={t('post-job')}>
+            <Plus className="w-full h-full sm:size-4" />
+            <span className="hidden sm:inline-flex">
+              {t('post-job')}
             </span>
           </Link>
         )}

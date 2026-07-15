@@ -11,6 +11,7 @@
         "login": "تسجيل الدخول",
         "profile": "الحساب",
         "admin": "لوحة التحكم",
+        "post-job": "نشر وظيفة",
         "logout": "تسجيل الخروج"
     },
     "Banner": {
@@ -1206,7 +1207,120 @@
         "career-resources-title": "موارد مهنية",
         "career-resources-description": "أدلة وأدوات للحصول على دورك التالي.",
         "applications-title": "الطلبات",
-        "applications-description": "تتبع وإدارة طلبات التوظيف على Jobify."
+        "applications-description": "تتبع وإدارة طلبات التوظيف على Jobify.",
+        "post-job-title": "نشر وظيفة",
+        "dashboard-title": "لوحة التوظيف"
+    },
+    "PostJobPage": {
+        "subtitle": "للشركات",
+        "title": "نشر وظيفة جديدة",
+        "description": "أنشئ إعلان وظيفة وابدأ باستقبال طلبات من مرشحين مؤهلين.",
+        "form": {
+            "sections": {
+                "basic": "المعلومات الأساسية",
+                "salary": "الراتب",
+                "details": "تفاصيل الدور",
+                "faq": "الأسئلة الشائعة"
+            },
+            "title": "المسمى الوظيفي",
+            "title-error": "يجب أن يكون العنوان 3 أحرف على الأقل.",
+            "description": "وصف الوظيفة",
+            "description-error": "يجب أن يكون الوصف 10 أحرف على الأقل.",
+            "location": "الموقع",
+            "location-error": "الموقع مطلوب.",
+            "experience": "سنوات الخبرة المطلوبة",
+            "experience-error": "يجب أن تكون الخبرة 0 أو أكثر.",
+            "job-type": "نوع الوظيفة",
+            "work-model": "نموذج العمل",
+            "relocation": "دعم الانتقال",
+            "visa-sponsored": "كفالة تأشيرة متاحة",
+            "salary-min": "الحد الأدنى للراتب",
+            "salary-max": "الحد الأعلى للراتب",
+            "salary-period": "فترة الراتب",
+            "salary-year": "سنوياً",
+            "salary-month": "شهرياً",
+            "currency": "العملة",
+            "salary-range-error": "يجب أن يكون الحد الأعلى للراتب أكبر من أو يساوي الحد الأدنى.",
+            "requirements": "المتطلبات",
+            "requirements-placeholder": "مثال: خبرة 3+ سنوات في React",
+            "responsibilities": "المسؤوليات الأساسية",
+            "responsibilities-placeholder": "مثال: بناء وصيانة ميزات الواجهة الأمامية",
+            "qualifications": "المؤهلات",
+            "qualifications-placeholder": "مثال: بكالوريوس في علوم الحاسوب",
+            "benefits": "المزايا",
+            "benefits-placeholder": "مثال: تأمين صحي",
+            "hiring-process": "خطوات التوظيف",
+            "hiring-process-placeholder": "مثال: مقابلة تقنية",
+            "faq-item": "سؤال شائع #{number}",
+            "faq-question": "السؤال",
+            "faq-answer": "الإجابة",
+            "add-item": "إضافة عنصر",
+            "remove-item": "إزالة",
+            "add-faq": "إضافة سؤال",
+            "submit": "نشر الوظيفة",
+            "submitting": "جاري النشر...",
+            "success": "تم نشر الوظيفة بنجاح.",
+            "error": "فشل نشر الوظيفة. حاول مرة أخرى.",
+            "validation-error": "يرجى إكمال جميع الحقول المطلوبة.",
+            "job-types": {
+                "full_time": "دوام كامل",
+                "part_time": "دوام جزئي",
+                "internship": "تدريب",
+                "contract": "عقد",
+                "temporary": "مؤقت",
+                "freelance": "عمل حر"
+            },
+            "work-models": {
+                "onsite": "في الموقع",
+                "hybrid": "هجين",
+                "remote": "عن بُعد"
+            }
+        }
+    },
+    "DashboardPage": {
+        "subtitle": "لوحة التوظيف",
+        "title": "إدارة الوظائف والطلبات",
+        "description": "راجع المتقدمين، أكّد التوظيف، وأدر مناصبك المفتوحة في مكان واحد.",
+        "post-job": "نشر وظيفة"
+    },
+    "CompanyPage": {
+        "gate": {
+            "title": "حساب شركة مطلوب",
+            "description": "هذه الصفحة متاحة فقط لحسابات الشركات. سجّل كمسؤول توظيف أو استخدم حساب شركة."
+        },
+        "jobs": {
+            "title": "وظائفك والمتقدمون",
+            "empty": "لم تنشر أي وظائف بعد.",
+            "load-error": "فشل تحميل وظائفك.",
+            "retry": "حاول مرة أخرى",
+            "applicants-load-error": "فشل تحميل المتقدمين.",
+            "view": "عرض الوظيفة",
+            "applicants": "المتقدمون",
+            "delete": "حذف",
+            "delete-success": "تم حذف الوظيفة بنجاح.",
+            "delete-error": "فشل حذف الوظيفة.",
+            "no-applicants": "لا يوجد متقدمون بعد.",
+            "view-resume": "السيرة الذاتية",
+            "review": "وضع قيد المراجعة",
+            "confirm": "تأكيد",
+            "reject": "رفض",
+            "cover-letter": "خطاب التقديم",
+            "status-updated": "تم تحديث حالة الطلب.",
+            "status-error": "فشل تحديث حالة الطلب.",
+            "post-job": "نشر وظيفة",
+            "post-first-job": "انشر وظيفتك الأولى",
+            "pending-summary": "{count, plural, one {طلب واحد قيد الانتظار} other {# طلبات قيد الانتظار}}",
+            "status": {
+                "open": "مفتوحة",
+                "closed": "مغلقة"
+            },
+            "application-status": {
+                "pending": "قيد الانتظار",
+                "reviewing": "قيد المراجعة",
+                "accepted": "مؤكد",
+                "rejected": "مرفوض"
+            }
+        }
     },
     "ApiErrors": {
         "internalServerError": "خطأ داخلي في الخادم",

@@ -1,16 +1,17 @@
 'use client'
 import { AnimatePresence,  SlideDown } from '@/components/motion';
+import { USER_ROLES } from '@/constants/roles';
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/src/store/auth.store';
 import { useGlobalStore } from '@/store/global.store';
-import { X } from 'lucide-react';
+import { Plus, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import React from 'react'
 
 export default function MobileMenu() {
     const { menuState, setMenuState,menuItems } = useGlobalStore();
-    const {isAuthenticated,logout} = useAuthStore()
+    const { isAuthenticated, logout, user } = useAuthStore()
     const t = useTranslations('Menu');
   return (
     <AnimatePresence>     
@@ -41,7 +42,14 @@ export default function MobileMenu() {
                                         {t('login')}
                                     </Link>
                                 </li>:
-                                <li className="mobile-menu-item flex items-center gap-4 pt-8">
+                                <li className="mobile-menu-item flex flex-col items-start gap-4 pt-8">
+                                    {user?.role === USER_ROLES.COMPANY && (
+                                      <Link href="/post-job" onClick={()=>setMenuState(false)} className="base-btn btn-primary inline-flex items-center gap-2 px-6">
+                                        <Plus className="size-4" />
+                                        {t('post-job')}
+                                      </Link>
+                                    )}
+                                    <div className="flex items-center gap-4">
                                     <Link href="/profile" onClick={()=>setMenuState(false)} className="base-btn btn-secondary px-6">
                                         {t('profile')}
                                     </Link>
@@ -53,6 +61,7 @@ export default function MobileMenu() {
                                     className="base-btn btn-red px-6 cursor-pointer">
                                         {t('logout')}
                                     </button>
+                                    </div>
                                 </li>
                             }
                         </ul>

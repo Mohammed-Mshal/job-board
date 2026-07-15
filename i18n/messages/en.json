@@ -11,6 +11,7 @@
         "login": "Sign In",
         "profile": "Profile",
         "admin": "Admin",
+        "post-job": "Post job",
         "logout": "Logout"
     },
     "Banner": {
@@ -1206,7 +1207,120 @@
         "career-resources-title": "Career Resources",
         "career-resources-description": "Guides and tools to help you land your next role.",
         "applications-title": "Applications",
-        "applications-description": "Track and manage your job applications on Jobify."
+        "applications-description": "Track and manage your job applications on Jobify.",
+        "post-job-title": "Post a job",
+        "dashboard-title": "Recruiter dashboard"
+    },
+    "PostJobPage": {
+        "subtitle": "For companies",
+        "title": "Post a new job",
+        "description": "Create a job listing and start receiving applications from qualified candidates.",
+        "form": {
+            "sections": {
+                "basic": "Basic information",
+                "salary": "Compensation",
+                "details": "Role details",
+                "faq": "FAQ"
+            },
+            "title": "Job title",
+            "title-error": "Title must be at least 3 characters.",
+            "description": "Job description",
+            "description-error": "Description must be at least 10 characters.",
+            "location": "Location",
+            "location-error": "Location is required.",
+            "experience": "Years of experience required",
+            "experience-error": "Experience must be 0 or more.",
+            "job-type": "Job type",
+            "work-model": "Work model",
+            "relocation": "Relocation support",
+            "visa-sponsored": "Visa sponsorship available",
+            "salary-min": "Minimum salary",
+            "salary-max": "Maximum salary",
+            "salary-period": "Salary period",
+            "salary-year": "Per year",
+            "salary-month": "Per month",
+            "currency": "Currency",
+            "salary-range-error": "Maximum salary must be greater than or equal to minimum.",
+            "requirements": "Requirements",
+            "requirements-placeholder": "e.g. 3+ years React experience",
+            "responsibilities": "Core responsibilities",
+            "responsibilities-placeholder": "e.g. Build and maintain frontend features",
+            "qualifications": "Qualifications",
+            "qualifications-placeholder": "e.g. Bachelor's in Computer Science",
+            "benefits": "Benefits",
+            "benefits-placeholder": "e.g. Health insurance",
+            "hiring-process": "Hiring process steps",
+            "hiring-process-placeholder": "e.g. Technical interview",
+            "faq-item": "FAQ #{number}",
+            "faq-question": "Question",
+            "faq-answer": "Answer",
+            "add-item": "Add item",
+            "remove-item": "Remove",
+            "add-faq": "Add FAQ",
+            "submit": "Publish job",
+            "submitting": "Publishing...",
+            "success": "Job published successfully.",
+            "error": "Failed to publish job. Please try again.",
+            "validation-error": "Please complete all required fields.",
+            "job-types": {
+                "full_time": "Full time",
+                "part_time": "Part time",
+                "internship": "Internship",
+                "contract": "Contract",
+                "temporary": "Temporary",
+                "freelance": "Freelance"
+            },
+            "work-models": {
+                "onsite": "On site",
+                "hybrid": "Hybrid",
+                "remote": "Remote"
+            }
+        }
+    },
+    "DashboardPage": {
+        "subtitle": "Recruiter dashboard",
+        "title": "Manage jobs & applications",
+        "description": "Review applicants, confirm hires, and manage your open positions in one place.",
+        "post-job": "Post a job"
+    },
+    "CompanyPage": {
+        "gate": {
+            "title": "Company account required",
+            "description": "This page is only available to company accounts. Sign up as a recruiter or switch to a company account."
+        },
+        "jobs": {
+            "title": "Your jobs & applicants",
+            "empty": "You haven't posted any jobs yet.",
+            "load-error": "Failed to load your jobs.",
+            "retry": "Try again",
+            "applicants-load-error": "Failed to load applicants.",
+            "view": "View job",
+            "applicants": "Applicants",
+            "delete": "Delete",
+            "delete-success": "Job deleted successfully.",
+            "delete-error": "Failed to delete job.",
+            "no-applicants": "No applicants yet.",
+            "view-resume": "Resume",
+            "review": "Mark reviewing",
+            "confirm": "Confirm",
+            "reject": "Reject",
+            "cover-letter": "Cover letter",
+            "status-updated": "Application status updated.",
+            "status-error": "Failed to update application status.",
+            "post-job": "Post a job",
+            "post-first-job": "Post your first job",
+            "pending-summary": "{count, plural, one {# pending application} other {# pending applications}}",
+            "status": {
+                "open": "Open",
+                "closed": "Closed"
+            },
+            "application-status": {
+                "pending": "Pending",
+                "reviewing": "Reviewing",
+                "accepted": "Confirmed",
+                "rejected": "Rejected"
+            }
+        }
     },
     "ApiErrors": {
         "internalServerError": "Internal server error",

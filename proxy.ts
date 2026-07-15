@@ -6,7 +6,7 @@ import { USER_ROLES } from './constants/roles';
 
 const handleI18nRouting = createMiddleware(routing);
 const authPages= ['/login','/signup']
-const protectedPages = ['/dashboard','/profile']
+const protectedPages = ['/dashboard','/profile','/post-job']
 const adminPages = ['/admin']
 
 type NextProxy = (request : NextRequest) => NextResponse | Promise <NextResponse>
@@ -30,6 +30,7 @@ const withAuth : ProxyFactory = (next)=>async (request: NextRequest)=> {
 
     if ((isProtectedPage || isAdminPage) && !session) {
         const loginUrl= new URL('/login',request.url)
+        loginUrl.searchParams.set('callbackUrl', pathname)
         return  NextResponse.redirect(loginUrl)
     }
 

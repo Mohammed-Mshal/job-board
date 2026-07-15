@@ -80,18 +80,27 @@ export interface CreateJobPayload {
   salary: {
     min: number;
     max: number;
+    salaryPeriod: "year" | "month";
+    currency: string;
   };
   requirements: string[];
+  experience: number;
+  coreResponsibilities: string[];
+  qualifications: string[];
+  jobType: string;
+  workModel: string;
+  benefits: string[];
+  hiringProcess: string[];
+  FAQ: {
+    question: string;
+    answer: string;
+  }[];
+  relocation: boolean;
+  visaSponsored: boolean;
   status?: JobStatusType;
 }
 
-export interface UpdateJobPayload extends Partial<CreateJobPayload> {
-  salary?: {
-    min: number;
-    max: number;
-  };
-  requirements?: string[];
-}
+export interface UpdateJobPayload extends Partial<CreateJobPayload> {}
 
 export interface GetJobsParams {
   search?: string;

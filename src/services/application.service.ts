@@ -70,6 +70,25 @@ export const applicationService = {
     );
   },
 
+  reviewApplication: async (
+    id: string
+  ): Promise<ApplicationStatusUpdateResponse> => {
+    return api.patch<ApplicationStatusUpdateResponse>(
+      ENDPOINTS.APPLICATIONS.STATUS(id),
+      { status: ApplicationStatus.REVIEWING }
+    );
+  },
+
+  updateApplicationStatus: async (
+    id: string,
+    status: ApplicationStatus
+  ): Promise<ApplicationStatusUpdateResponse> => {
+    return api.patch<ApplicationStatusUpdateResponse>(
+      ENDPOINTS.APPLICATIONS.STATUS(id),
+      { status }
+    );
+  },
+
   deleteApplication: async (id: string): Promise<{ message: string }> => {
     return api.delete<{ message: string }>(ENDPOINTS.APPLICATIONS.BY_ID(id));
   },

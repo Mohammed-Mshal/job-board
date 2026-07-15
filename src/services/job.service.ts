@@ -29,8 +29,8 @@ export const jobService = {
     }
   },
 
-  createJob: async (payload: CreateJobPayload): Promise<ApiResponse<IJob>> => {
-    return api.post<ApiResponse<IJob>>(ENDPOINTS.JOBS.LIST, payload);
+  createJob: async (payload: CreateJobPayload): Promise<IJob> => {
+    return api.post<IJob>(ENDPOINTS.JOBS.LIST, payload);
   },
 
   updateJob: async (
