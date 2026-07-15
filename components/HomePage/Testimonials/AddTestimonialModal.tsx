@@ -236,14 +236,14 @@ export default function AddTestimonialModal({
               variant="outline"
               onClick={handleClose}
               disabled={isSubmitting}
-              className="flex-1 rounded-lg border-[#27272A] bg-transparent text-[#A1A1AA] hover:bg-[#27272A]"
+              className="flex-1 rounded-lg border-[#27272A] bg-transparent text-[#A1A1AA] hover:bg-[#27272A] py-3"
             >
               {t("cancel")}
             </Button>
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="flex-1 rounded-lg btn-primary"
+              className="flex-1 rounded-lg btn-primary py-3"
             >
               {isSubmitting ? (
                 <span className="flex items-center gap-2">
